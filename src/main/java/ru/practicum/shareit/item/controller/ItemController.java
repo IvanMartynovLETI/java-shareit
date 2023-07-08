@@ -1,11 +1,14 @@
-package ru.practicum.shareit.item;
+package ru.practicum.shareit.item.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.ItemDtoMapper;
+import ru.practicum.shareit.item.i.api.ItemService;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,14 +22,14 @@ public class ItemController {
 
     @PostMapping
     public ItemDto add(@RequestHeader("X-Sharer-User-Id") Long userId,
-                       @RequestBody ItemDto itemDto) {
+                       @Valid @RequestBody ItemDto itemDto) {
         log.info("Controller layer: request for item creation obtained.");
 
         return itemDtoMapper.convertItemToItemDto(itemService.saveItem(userId, itemDtoMapper.itemDtoToItem(itemDto)));
     }
 
     @PatchMapping("/{itemId}")
-    public ItemDto updateItem(@RequestHeader("X-Sharer-User-Id") Long userId,
+    public ItemDto updateItem(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull  Long userId,
                               @PathVariable final Long itemId,
                               @RequestBody ItemDto itemDto) {
         log.info("Controller layer: request for item with id: '{}' update obtained.", itemId);

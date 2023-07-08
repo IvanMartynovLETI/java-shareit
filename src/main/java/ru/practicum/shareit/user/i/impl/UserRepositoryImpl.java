@@ -1,9 +1,10 @@
-package ru.practicum.shareit.user;
+package ru.practicum.shareit.user.i.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.exception.EntityDoesNotExistException;
+import ru.practicum.shareit.user.i.api.UserRepository;
 import ru.practicum.shareit.user.model.User;
 import ru.practicum.shareit.validator.Validator;
 
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 @Slf4j
-@Component
+@Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepository {
     private final Map<Long, User> users = new HashMap<>();

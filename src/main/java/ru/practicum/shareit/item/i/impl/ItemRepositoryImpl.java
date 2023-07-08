@@ -1,18 +1,19 @@
-package ru.practicum.shareit.item;
+package ru.practicum.shareit.item.i.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import ru.practicum.shareit.exception.EntityDoesNotExistException;
+import ru.practicum.shareit.item.i.api.ItemRepository;
 import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.user.UserRepository;
+import ru.practicum.shareit.user.i.api.UserRepository;
 import ru.practicum.shareit.validator.Validator;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Component
+@Repository
 @RequiredArgsConstructor
 public class ItemRepositoryImpl implements ItemRepository {
     private final Map<Long, Item> items = new HashMap<>();

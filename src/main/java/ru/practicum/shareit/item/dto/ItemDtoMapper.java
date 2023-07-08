@@ -20,13 +20,9 @@ public class ItemDtoMapper {
     }
 
     public Item itemDtoToItem(ItemDto itemDto) {
-        Item item = new Item();
-        item.setId(itemDto.getId());
-        item.setName(itemDto.getName());
-        item.setDescription(itemDto.getDescription());
-        item.setAvailable(itemDto.getAvailable());
 
-        return item;
+        return new Item(itemDto.getId(), itemDto.getName(), itemDto.getDescription(), itemDto.getAvailable(),
+                0L, 0L);
     }
 
     public Optional<List<ItemDto>> itemsToDtos(List<Item> items) {
@@ -41,12 +37,7 @@ public class ItemDtoMapper {
     }
 
     public ItemDto convertItemToItemDto(Item item) {
-        ItemDto itemDto = new ItemDto();
-        itemDto.setId(item.getId());
-        itemDto.setName(item.getName());
-        itemDto.setDescription(item.getDescription());
-        itemDto.setAvailable(item.getAvailable());
 
-        return itemDto;
+        return new ItemDto(item.getId(), item.getName(), item.getDescription(), item.getAvailable());
     }
 }

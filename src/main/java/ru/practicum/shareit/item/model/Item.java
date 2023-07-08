@@ -6,7 +6,7 @@ import lombok.*;
 @Setter
 @ToString
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class Item {
     private Long id;
     private String name;

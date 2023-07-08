@@ -3,7 +3,6 @@ package ru.practicum.shareit.validator;
 import org.springframework.stereotype.Component;
 import ru.practicum.shareit.exception.EntityAlreadyExistsException;
 import ru.practicum.shareit.exception.EntityDoesNotExistException;
-import ru.practicum.shareit.exception.IncorrectParameterException;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
@@ -72,30 +71,8 @@ public class Validator {
                 throw new EntityDoesNotExistException(userWarning);
             }
 
-            if (item.getAvailable() == null) {
-                itemWarning = "Parameter 'available' of item shouldn't be null.";
-                throw new IncorrectParameterException(itemWarning);
-            }
-            if (item.getName() == null) {
-                itemWarning = "Parameter 'name' of item shouldn't be null.";
-                throw new IncorrectParameterException(itemWarning);
-            }
-            if (item.getName().isEmpty()) {
-                itemWarning = "Parameter 'name' of item shouldn't be an empty.";
-                throw new IncorrectParameterException(itemWarning);
-            }
-            if (item.getDescription() == null) {
-                itemWarning = "Parameter 'description' of item shouldn't be null.";
-                throw new IncorrectParameterException(itemWarning);
-            }
-
             validatedItem.setId(++itemId);
         } else {
-            if (userId == null) {
-                itemWarning = "Parameter 'userId' shouldn't be null";
-                throw new IncorrectParameterException(itemWarning);
-            }
-
             validatedItem = items.get(item.getId());
 
             if (!userId.equals(validatedItem.getOwnerId())) {

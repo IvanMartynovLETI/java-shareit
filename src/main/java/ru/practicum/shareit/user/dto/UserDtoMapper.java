@@ -21,12 +21,8 @@ public class UserDtoMapper {
     }
 
     public User userDtoToUser(UserDto userDto) {
-        User user = new User();
-        user.setId(userDto.getId());
-        user.setName(userDto.getName());
-        user.setEmail(userDto.getEmail());
 
-        return user;
+        return new User(userDto.getId(), userDto.getName(), userDto.getEmail());
     }
 
     public Optional<List<UserDto>> usersToDtos(Collection<User> users) {
@@ -41,11 +37,7 @@ public class UserDtoMapper {
     }
 
     public UserDto convertUserToUserDto(User user) {
-        UserDto userDto = new UserDto();
-        userDto.setId(user.getId());
-        userDto.setName(user.getName());
-        userDto.setEmail(user.getEmail());
 
-        return userDto;
+        return new UserDto(user.getId(), user.getName(), user.getEmail());
     }
 }

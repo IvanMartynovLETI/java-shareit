@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 @Setter
 @ToString
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@AllArgsConstructor
 public class User {
     private Long id;
 
