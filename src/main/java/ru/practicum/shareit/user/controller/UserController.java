@@ -41,10 +41,10 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public UserDto deleteUserById(@PathVariable final Long id) {
+    public void deleteUserById(@PathVariable final Long id) {
         log.info("Controller layer: request for deleting user by id: '{}' obtained.", id);
 
-        return userDtoMapper.convertUserToUserDto(userService.deleteUserById(id));
+        userService.deleteUserById(id);
     }
 
     @GetMapping

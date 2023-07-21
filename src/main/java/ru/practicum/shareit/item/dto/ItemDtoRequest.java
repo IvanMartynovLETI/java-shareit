@@ -5,10 +5,12 @@ import lombok.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@Getter
 @Setter
+@Getter
+@ToString
+@EqualsAndHashCode
 @AllArgsConstructor
-public class ItemDto {
+public class ItemDtoRequest {
     private Long id;
 
     @NotNull(message = "Parameter 'name' of item shouldn't be null.")

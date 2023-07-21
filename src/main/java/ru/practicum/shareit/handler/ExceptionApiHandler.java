@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.practicum.shareit.exception.EntityAlreadyExistsException;
 import ru.practicum.shareit.exception.EntityDoesNotExistException;
-import ru.practicum.shareit.exception.IncorrectParameterException;
+import ru.practicum.shareit.exception.EntityUnavailableException;
+import ru.practicum.shareit.exception.InvalidParameterException;
 
 @Slf4j
 @RestControllerAdvice
@@ -26,8 +27,15 @@ public class ExceptionApiHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessage(e.getMessage()));
     }
 
-    @ExceptionHandler(IncorrectParameterException.class)
-    public ResponseEntity<ErrorMessage> incorrectParameterException(IncorrectParameterException e) {
+    @ExceptionHandler(EntityUnavailableException.class)
+    public ResponseEntity<ErrorMessage> entityUnavailableException(EntityUnavailableException e) {
+        log.warn(e.toString());
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(e.getMessage()));
+    }
+
+    @ExceptionHandler(InvalidParameterException.class)
+    public ResponseEntity<ErrorMessage> invalidParameterException(InvalidParameterException e) {
         log.warn(e.toString());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(e.getMessage()));
