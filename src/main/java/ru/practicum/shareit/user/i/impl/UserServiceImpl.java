@@ -73,10 +73,19 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void deleteUserById(Long id) {
+    public User deleteUserById(Long id) {
         log.info("Service layer: delete user by id: '{}'.", id);
 
+        User userFound = repository.findUserById(id);
+
+        if (userFound == null) {
+            String userWarning = "User with id: " + id + " doesn't exist in database.";
+            throw new EntityDoesNotExistException(userWarning);
+        }
+
         repository.deleteById(id);
+
+        return userFound;
     }
 
     @Transactional(readOnly = true)

@@ -12,7 +12,6 @@ import ru.practicum.shareit.item.model.Item;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -47,33 +46,10 @@ public class ItemDtoMapper {
         }
     }
 
-    public Optional<ItemDtoResponse> itemToItemDtoResponse(Item item, Long userId, LocalDateTime ndtm) {
-        if (item == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(convertItemToItemDtoResponse(item, userId, ndtm));
-        }
-    }
+    public ItemDtoResponse itemToItemDtoResponse(Item item, Long userId) {
+        LocalDateTime ndtm = LocalDateTime.now();
 
-    public Item itemDtoRequestToItem(ItemDtoRequest itemDtoRequest) {
-        Item item = new Item();
-        item.setId(itemDtoRequest.getId());
-        item.setName(itemDtoRequest.getName());
-        item.setDescription(itemDtoRequest.getDescription());
-        item.setAvailable(itemDtoRequest.getAvailable());
-
-        return item;
-    }
-
-    public Optional<List<ItemDtoResponse>> itemsToDtos(List<Item> items, Long userId, LocalDateTime ndtm) {
-        if (items == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(items
-                    .stream()
-                    .map((Item i) -> convertItemToItemDtoResponse(i, userId, ndtm))
-                    .collect(Collectors.toList()));
-        }
+        return convertItemToItemDtoResponse(item, userId, ndtm);
     }
 
     public ItemDtoResponse convertItemToItemDtoResponse(Item item, Long userId, LocalDateTime ndtm) {
@@ -95,5 +71,23 @@ public class ItemDtoMapper {
                 .getAllCommentsByItemId(item.getId())));
 
         return itemDtoResponse;
+    }
+
+    public Item itemDtoRequestToItem(ItemDtoRequest itemDtoRequest) {
+        Item item = new Item();
+        item.setId(itemDtoRequest.getId());
+        item.setName(itemDtoRequest.getName());
+        item.setDescription(itemDtoRequest.getDescription());
+        item.setAvailable(itemDtoRequest.getAvailable());
+
+        return item;
+    }
+
+    public List<ItemDtoResponse> itemsToDtos(List<Item> items, Long userId) {
+        LocalDateTime ndtm = LocalDateTime.now();
+        return items
+                .stream()
+                .map((Item i) -> convertItemToItemDtoResponse(i, userId, ndtm))
+                .collect(Collectors.toList());
     }
 }

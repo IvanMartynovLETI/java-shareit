@@ -21,6 +21,7 @@ public class Booking {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "bookings_id")
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @Column(name = "start", nullable = false)
@@ -31,11 +32,13 @@ public class Booking {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
+    @ToString.Exclude
     private Item item;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "booker_id")
     @JsonSerialize(using = UserSerializer.class)
+    @ToString.Exclude
     private User booker;
 
     @Enumerated(EnumType.STRING)

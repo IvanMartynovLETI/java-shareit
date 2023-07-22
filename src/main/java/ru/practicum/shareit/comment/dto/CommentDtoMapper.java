@@ -9,7 +9,6 @@ import ru.practicum.shareit.user.i.api.UserService;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -18,15 +17,7 @@ public class CommentDtoMapper {
     private final UserService userService;
     private final ItemService itemService;
 
-    public Optional<CommentDto> commentToDto(Comment comment) {
-        if (comment == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(convertCommentToDto(comment));
-        }
-    }
-
-    public CommentDto convertCommentToDto(Comment comment) {
+    public CommentDto commentToDto(Comment comment) {
         CommentDto commentDto = new CommentDto();
         commentDto.setId(comment.getId());
         commentDto.setText(comment.getText());
@@ -52,7 +43,7 @@ public class CommentDtoMapper {
 
         return comments
                 .stream()
-                .map(this::convertCommentToDto)
+                .map(this::commentToDto)
                 .collect(Collectors.toList());
     }
 }

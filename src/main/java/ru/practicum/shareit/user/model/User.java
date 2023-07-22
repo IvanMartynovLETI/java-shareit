@@ -17,6 +17,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "users_id")
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @NotNull(message = "User's login shouldn't be an empty.")

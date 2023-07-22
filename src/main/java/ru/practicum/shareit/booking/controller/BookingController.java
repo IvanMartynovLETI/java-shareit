@@ -10,9 +10,7 @@ import ru.practicum.shareit.booking.i.api.BookingService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -32,52 +30,50 @@ public class BookingController {
     }
 
     @PatchMapping("/{bookingId}")
-    public Optional<BookingDtoResponse> updateBooking(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+    public BookingDtoResponse updateBooking(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
                                                       @PathVariable final Long bookingId,
                                                       @RequestParam Boolean approved) {
         log.info("Controller layer: request for booking with id: '{}' update obtained.", bookingId);
 
-        return bookingDtoMapper.bookingToDtoForBookingResponse(bookingService.updateBooking(bookingId, userId,
+        return bookingDtoMapper.bookingToDtoResponse(bookingService.updateBooking(bookingId, userId,
                 approved), userId);
     }
 
     @GetMapping("/{bookingId}")
-    public Optional<BookingDtoResponse> getBookingInfo(@Valid @RequestHeader("X-Sharer-User-Id")
+    public BookingDtoResponse getBookingInfo(@Valid @RequestHeader("X-Sharer-User-Id")
                                                        @NotNull Long userId,
                                                        @PathVariable final Long bookingId) {
         log.info("Controller layer: request for info about booking with id: '{}' update obtained.", bookingId);
 
-        return bookingDtoMapper.bookingToDtoForBookingResponse(bookingService.getBookingInfo(bookingId, userId),
+        return bookingDtoMapper.bookingToDtoResponse(bookingService.getBookingInfo(bookingId, userId),
                 userId);
     }
 
     @GetMapping
-    public Optional<List<BookingDtoResponse>> getAllBookingsByUser(@Valid @RequestHeader("X-Sharer-User-Id")
+    public List<BookingDtoResponse> getAllBookingsByUser(@Valid @RequestHeader("X-Sharer-User-Id")
                                                                    @NotNull Long userId,
                                                                    @RequestParam(required = false,
                                                                            defaultValue = "ALL")
                                                                    String state) {
-        LocalDateTime ndtm = LocalDateTime.now();
 
         log.info("Controller layer: request for all bookings with state: '{}' of user with id: '{}' obtained.",
                 state, userId);
 
-        return bookingDtoMapper.bookingsToDtosResponse(bookingService.getAllBookingsByUser(userId, state, ndtm),
+        return bookingDtoMapper.bookingsToDtosResponse(bookingService.getAllBookingsByUser(userId, state),
                 userId);
     }
 
     @GetMapping("/owner")
-    public Optional<List<BookingDtoResponse>> getAllBookingsByOwner(@Valid @RequestHeader("X-Sharer-User-Id")
+    public List<BookingDtoResponse> getAllBookingsByOwner(@Valid @RequestHeader("X-Sharer-User-Id")
                                                                     @NotNull Long userId,
                                                                     @RequestParam(required = false,
                                                                             defaultValue = "ALL")
                                                                     String state) {
-        LocalDateTime ndtm = LocalDateTime.now();
 
         log.info("Controller layer: request for all bookings with state: '{}' of owner with id: '{}' obtained.",
                 state, userId);
 
-        return bookingDtoMapper.bookingsToDtosResponse(bookingService.getAllBookingsByOwner(userId, state, ndtm),
+        return bookingDtoMapper.bookingsToDtosResponse(bookingService.getAllBookingsByOwner(userId, state),
                 userId);
     }
 }

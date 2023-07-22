@@ -13,9 +13,7 @@ import ru.practicum.shareit.item.i.api.ItemService;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -30,59 +28,49 @@ public class ItemController {
     @PostMapping
     public ItemDtoResponse add(@RequestHeader("X-Sharer-User-Id") Long userId,
                                @Valid @RequestBody ItemDtoRequest itemDtoRequest) {
-        LocalDateTime ndtm = LocalDateTime.now();
-
         log.info("Controller layer: request for item creation obtained.");
 
-        return itemDtoMapper.convertItemToItemDtoResponse(itemService.saveItem(userId,
-                itemDtoMapper.itemDtoRequestToItem(itemDtoRequest)), userId, ndtm);
+        return itemDtoMapper.itemToItemDtoResponse(itemService.saveItem(userId,
+                itemDtoMapper.itemDtoRequestToItem(itemDtoRequest)), userId);
     }
 
     @PatchMapping("/{itemId}")
-    public Optional<ItemDtoResponse> updateItem(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+    public ItemDtoResponse updateItem(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
                                                 @PathVariable final Long itemId,
                                                 @RequestBody ItemDtoRequest itemDtoRequest) {
-        LocalDateTime ndtm = LocalDateTime.now();
-
         log.info("Controller layer: request for item with id: '{}' update obtained.", itemId);
 
         return itemDtoMapper.itemToItemDtoResponse(itemService.updateItem(userId, itemId,
-                itemDtoMapper.itemDtoRequestToItem(itemDtoRequest)), userId, ndtm);
+                itemDtoMapper.itemDtoRequestToItem(itemDtoRequest)), userId);
     }
 
     @GetMapping("/{itemId}")
-    public Optional<ItemDtoResponse> getItemById(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+    public ItemDtoResponse getItemById(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
                                                  @PathVariable final Long itemId) {
-        LocalDateTime ndtm = LocalDateTime.now();
-
         log.info("Controller layer: request for getting of item with id: '{}' obtained.", itemId);
 
-        return itemDtoMapper.itemToItemDtoResponse(itemService.getItemById(itemId), userId, ndtm);
+        return itemDtoMapper.itemToItemDtoResponse(itemService.getItemById(itemId), userId);
     }
 
     @GetMapping
-    public Optional<List<ItemDtoResponse>> getAllItemsOfOwner(@RequestHeader("X-Sharer-User-Id")
+    public List<ItemDtoResponse> getAllItemsOfOwner(@RequestHeader("X-Sharer-User-Id")
                                                               @NotNull Long userId) {
-        LocalDateTime ndtm = LocalDateTime.now();
-
         log.info("Controller layer: request for getting of all items of owner with id: '{}' obtained.", userId);
 
-        return itemDtoMapper.itemsToDtos(itemService.getAllItemsOfOwner(userId), userId, ndtm);
+        return itemDtoMapper.itemsToDtos(itemService.getAllItemsOfOwner(userId), userId);
     }
 
     @GetMapping("/search")
-    public Optional<List<ItemDtoResponse>> getItemsByNameOrDescription(@Valid @RequestHeader("X-Sharer-User-Id")
+    public List<ItemDtoResponse> getItemsByNameOrDescription(@Valid @RequestHeader("X-Sharer-User-Id")
                                                                        @NotNull Long userId,
                                                                        @RequestParam String text) {
-        LocalDateTime ndtm = LocalDateTime.now();
-
         log.info("Controller layer: request for search items by name or description obtained.");
 
-        return itemDtoMapper.itemsToDtos(itemService.getItemsByNameOrDescription(text), userId, ndtm);
+        return itemDtoMapper.itemsToDtos(itemService.getItemsByNameOrDescription(text), userId);
     }
 
     @PostMapping("/{itemId}/comment")
-    public Optional<CommentDto> createComment(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+    public CommentDto createComment(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
                                               @PathVariable final Long itemId,
                                               @Valid @RequestBody CommentDto commentDto) {
         log.info("Controller layer: request for create comment of item with id: '{}' from user with id: '{}'",

@@ -21,6 +21,7 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "items_id")
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @Column(name = "name", length = 50, nullable = false)
@@ -35,10 +36,12 @@ public class Item {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     @JsonSerialize(using = UserSerializer.class)
+    @ToString.Exclude
     private User owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id")
     @JsonSerialize(using = ItemSerializer.class)
+    @ToString.Exclude
     private ItemRequest request;
 }

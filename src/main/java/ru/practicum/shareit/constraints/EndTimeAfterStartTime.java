@@ -7,13 +7,9 @@ import java.lang.annotation.*;
 
 @Documented
 @Constraint(validatedBy = EndTimeAfterStartTimeValidator.class)
-
 @Target({ElementType.TYPE})
-
 @Retention(RetentionPolicy.RUNTIME)
-
 public @interface EndTimeAfterStartTime {
-
     String message() default "End time must be after start time";
 
     Class<?>[] groups() default {};

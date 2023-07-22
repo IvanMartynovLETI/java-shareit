@@ -19,14 +19,16 @@ public class ItemRequest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_requests_id")
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @Column(name = "description", nullable = false)
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "users_id")
     @JsonSerialize(using = UserSerializer.class)
+    @ToString.Exclude
     private User requestor;
 
     @Column(name = "created", nullable = false)

@@ -8,7 +8,6 @@ import ru.practicum.shareit.item.i.api.ItemService;
 import ru.practicum.shareit.user.i.api.UserService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -16,36 +15,6 @@ import java.util.stream.Collectors;
 public class BookingDtoMapper {
     private final UserService userService;
     private final ItemService itemService;
-
-    public Optional<BookingDtoResponse> bookingToDtoForBookingResponse(Booking booking, Long userId) {
-        if (booking == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(bookingToDtoResponse(booking, userId));
-        }
-    }
-
-    public Booking dtoRequestToBooking(BookingDtoRequest dtoForBookingRequest, Long userId) {
-        Booking booking = new Booking();
-        booking.setStart(dtoForBookingRequest.getStart());
-        booking.setEnd(dtoForBookingRequest.getEnd());
-        booking.setBooker(userService.getUserById(userId));
-        booking.setItem(itemService.getItemById(dtoForBookingRequest.getItemId()));
-        booking.setStatus(Status.WAITING);
-
-        return booking;
-    }
-
-    public Optional<List<BookingDtoResponse>> bookingsToDtosResponse(List<Booking> bookings, Long userId) {
-        if (bookings == null) {
-            return Optional.empty();
-        } else {
-            return Optional.of(bookings
-                    .stream()
-                    .map((Booking b) -> bookingToDtoResponse(b, userId))
-                    .collect(Collectors.toList()));
-        }
-    }
 
     public BookingDtoResponse bookingToDtoResponse(Booking booking, Long userId) {
         BookingDtoResponse dtoForBookingResponse = new BookingDtoResponse();
@@ -64,5 +33,24 @@ public class BookingDtoMapper {
         }
 
         return dtoForBookingResponse;
+    }
+
+    public Booking dtoRequestToBooking(BookingDtoRequest dtoForBookingRequest, Long userId) {
+        Booking booking = new Booking();
+        booking.setStart(dtoForBookingRequest.getStart());
+        booking.setEnd(dtoForBookingRequest.getEnd());
+        booking.setBooker(userService.getUserById(userId));
+        booking.setItem(itemService.getItemById(dtoForBookingRequest.getItemId()));
+        booking.setStatus(Status.WAITING);
+
+        return booking;
+    }
+
+    public List<BookingDtoResponse> bookingsToDtosResponse(List<Booking> bookings, Long userId) {
+
+        return bookings
+                .stream()
+                .map((Booking b) -> bookingToDtoResponse(b, userId))
+                .collect(Collectors.toList());
     }
 }

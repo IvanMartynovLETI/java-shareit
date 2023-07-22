@@ -104,7 +104,9 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Booking> getAllBookingsByUser(Long userId, String state, LocalDateTime dateTime) {
+    public List<Booking> getAllBookingsByUser(Long userId, String state) {
+        LocalDateTime ndtm = LocalDateTime.now();
+
         log.info("Service layer: get all bookings by user with id: '{}'.", userId);
 
         if (userService.getUserById(userId) == null) {
@@ -117,14 +119,13 @@ public class BookingServiceImpl implements BookingService {
                 return repository.findAllByBookerIdOrderByStartDesc(userId);
             }
             case "CURRENT": {
-                return repository.findAllByBookerIdAndStartBeforeAndEndAfterOrderByStartDesc(userId, dateTime,
-                        dateTime);
+                return repository.findAllByBookerIdAndStartBeforeAndEndAfterOrderByStartDesc(userId, ndtm, ndtm);
             }
             case "PAST": {
-                return repository.findAllByBookerIdAndEndBeforeOrderByStartDesc(userId, dateTime);
+                return repository.findAllByBookerIdAndEndBeforeOrderByStartDesc(userId, ndtm);
             }
             case "FUTURE": {
-                return repository.findAllByBookerIdAndStartAfterOrderByStartDesc(userId, dateTime);
+                return repository.findAllByBookerIdAndStartAfterOrderByStartDesc(userId, ndtm);
             }
             case "WAITING": {
                 return repository.findAllByBookerIdAndStatusOrderByStartDesc(userId, Status.WAITING);
@@ -139,7 +140,9 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Booking> getAllBookingsByOwner(Long ownerId, String state, LocalDateTime dateTime) {
+    public List<Booking> getAllBookingsByOwner(Long ownerId, String state) {
+        LocalDateTime ndtm = LocalDateTime.now();
+
         log.info("Service layer: get all bookings by owner with id: '{}'.", ownerId);
 
         if (userService.getUserById(ownerId) == null) {
@@ -152,14 +155,13 @@ public class BookingServiceImpl implements BookingService {
                 return repository.findAllByItemOwnerIdOrderByStartDesc(ownerId);
             }
             case "CURRENT": {
-                return repository.findAllByItemOwnerIdAndStartBeforeAndEndAfterOrderByStartDesc(ownerId, dateTime,
-                        dateTime);
+                return repository.findAllByItemOwnerIdAndStartBeforeAndEndAfterOrderByStartDesc(ownerId, ndtm, ndtm);
             }
             case "PAST": {
-                return repository.findAllByItemOwnerIdAndEndBeforeOrderByStartDesc(ownerId, dateTime);
+                return repository.findAllByItemOwnerIdAndEndBeforeOrderByStartDesc(ownerId, ndtm);
             }
             case "FUTURE": {
-                return repository.findAllByItemOwnerIdAndStartAfterOrderByStartDesc(ownerId, dateTime);
+                return repository.findAllByItemOwnerIdAndStartAfterOrderByStartDesc(ownerId, ndtm);
             }
             case "WAITING": {
                 return repository.findAllByItemOwnerIdAndStatusOrderByStartDesc(ownerId, Status.WAITING);

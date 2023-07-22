@@ -22,6 +22,7 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comments_id")
+    @EqualsAndHashCode.Exclude
     private Long id;
 
     @Column(name = "text", length = 10200, nullable = false)
@@ -30,11 +31,13 @@ public class Comment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     @JsonSerialize(using = ItemSerializer.class)
+    @ToString.Exclude
     private Item item;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
     @JsonSerialize(using = UserSerializer.class)
+    @ToString.Exclude
     private User author;
 
     @Column(name = "created")
