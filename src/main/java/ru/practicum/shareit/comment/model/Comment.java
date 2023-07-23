@@ -1,8 +1,9 @@
-package ru.practicum.shareit.booking.model;
+package ru.practicum.shareit.comment.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.serializer.ItemSerializer;
 import ru.practicum.shareit.serializer.UserSerializer;
 import ru.practicum.shareit.user.model.User;
 
@@ -16,32 +17,29 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "bookings", schema = "public")
-public class Booking {
+@Table(name = "comments", schema = "public")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "bookings_id")
+    @Column(name = "comments_id")
     @EqualsAndHashCode.Exclude
     private Long id;
 
-    @Column(name = "start", nullable = false)
-    private LocalDateTime start;
+    @Column(name = "text", length = 10200, nullable = false)
+    private String text;
 
-    @Column(name = "end", nullable = false)
-    private LocalDateTime end;
-
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
+    @JsonSerialize(using = ItemSerializer.class)
     @ToString.Exclude
     private Item item;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "booker_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "author_id")
     @JsonSerialize(using = UserSerializer.class)
     @ToString.Exclude
-    private User booker;
+    private User author;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status")
-    private Status status;
+    @Column(name = "created")
+    private LocalDateTime created;
 }

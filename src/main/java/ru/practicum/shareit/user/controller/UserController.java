@@ -9,7 +9,6 @@ import ru.practicum.shareit.user.i.api.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -23,18 +22,18 @@ public class UserController {
     public UserDto saveNewUser(@Valid @RequestBody UserDto userDto) {
         log.info("Controller layer: request for user creation obtained.");
 
-        return userDtoMapper.convertUserToUserDto(userService.saveUser(userDtoMapper.userDtoToUser(userDto)));
+        return userDtoMapper.userToUserDto(userService.saveUser(userDtoMapper.userDtoToUser(userDto)));
     }
 
     @PatchMapping("/{id}")
     public UserDto updateUser(@PathVariable final Long id, @RequestBody UserDto userDto) {
         log.info("Controller layer: request for user with id: '{}' update obtained.", id);
 
-        return userDtoMapper.convertUserToUserDto(userService.updateUser(id, userDtoMapper.userDtoToUser(userDto)));
+        return userDtoMapper.userToUserDto(userService.updateUser(id, userDtoMapper.userDtoToUser(userDto)));
     }
 
     @GetMapping("/{id}")
-    public Optional<UserDto> getUserById(@PathVariable final long id) {
+    public UserDto getUserById(@PathVariable final long id) {
         log.info("Controller layer: request for getting user by id: '{}' obtained.", id);
 
         return userDtoMapper.userToUserDto(userService.getUserById(id));
@@ -44,11 +43,11 @@ public class UserController {
     public UserDto deleteUserById(@PathVariable final Long id) {
         log.info("Controller layer: request for deleting user by id: '{}' obtained.", id);
 
-        return userDtoMapper.convertUserToUserDto(userService.deleteUserById(id));
+        return userDtoMapper.userToUserDto(userService.deleteUserById(id));
     }
 
     @GetMapping
-    public Optional<List<UserDto>> getAllUsers() {
+    public List<UserDto> getAllUsers() {
         log.info("Controller layer: request for getting all users obtained.");
 
         return userDtoMapper.usersToDtos(userService.getAllUsers());
