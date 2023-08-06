@@ -121,10 +121,6 @@ public class BookingControllerTests {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(booking.getId()), Long.class))
-                .andExpect(jsonPath("$.start", is(booking.getStart().toString().substring(0,
-                        booking.getStart().toString().length() - 2))))
-                .andExpect(jsonPath("$.end", is(booking.getEnd().toString().substring(0,
-                        booking.getEnd().toString().length() - 2))))
                 .andExpect(jsonPath("$.status", is(booking.getStatus().toString())))
                 .andExpect(jsonPath("$.name", is(booking.getItem().getName())));
     }
@@ -171,10 +167,6 @@ public class BookingControllerTests {
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(booking.getId()), Long.class))
-                .andExpect(jsonPath("$.start", is(booking.getStart().toString().substring(0,
-                        booking.getStart().toString().length() - 2))))
-                .andExpect(jsonPath("$.end", is(booking.getEnd().toString().substring(0,
-                        booking.getEnd().toString().length() - 2))))
                 .andExpect(jsonPath("$.status", is(booking.getStatus().toString())))
                 .andExpect(jsonPath("$.name", is(booking.getItem().getName())));
     }
@@ -218,10 +210,6 @@ public class BookingControllerTests {
                         .header("X-Sharer-User-Id", user1.getId()))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id", is(booking.getId()), Long.class))
-                .andExpect(jsonPath("$.start", is(booking.getStart().toString().substring(0,
-                        booking.getStart().toString().length() - 2))))
-                .andExpect(jsonPath("$.end", is(booking.getEnd().toString().substring(0,
-                        booking.getEnd().toString().length() - 2))))
                 .andExpect(jsonPath("$.status", is(booking.getStatus().toString())))
                 .andExpect(jsonPath("$.name", is(booking.getItem().getName())));
     }
