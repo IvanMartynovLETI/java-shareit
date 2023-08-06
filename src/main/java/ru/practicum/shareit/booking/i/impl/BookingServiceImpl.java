@@ -16,7 +16,6 @@ import ru.practicum.shareit.exception.InvalidParameterException;
 import ru.practicum.shareit.user.i.api.UserService;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -131,10 +130,8 @@ public class BookingServiceImpl implements BookingService {
                 return repository.findAllByBookerIdOrderByStartDesc(userId, page);
             }
             case "CURRENT": {
-                List<Booking> bookings = repository.findAllByBookerIdAndStartBeforeAndEndAfterOrderByStartDesc(userId,
+                return repository.findAllByBookerIdAndStartBeforeAndEndAfterOrderByStartDesc(userId,
                         ndtm, ndtm, page);
-                Collections.reverse(bookings);
-                return bookings;
             }
             case "PAST": {
                 return repository.findAllByBookerIdAndEndBeforeOrderByStartDesc(userId, ndtm, page);
