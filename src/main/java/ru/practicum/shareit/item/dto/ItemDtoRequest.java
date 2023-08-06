@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
+@NoArgsConstructor
 public class ItemDtoRequest {
     private Long id;
 
@@ -22,4 +23,6 @@ public class ItemDtoRequest {
 
     @NotNull(message = "Parameter 'available' of item shouldn't be null.")
     private Boolean available;
+
+    private Long requestId;
 }

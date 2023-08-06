@@ -2,9 +2,12 @@ package ru.practicum.shareit.item.i.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exception.EntityDoesNotExistException;
+import ru.practicum.shareit.exception.InvalidParameterException;
 import ru.practicum.shareit.item.i.api.ItemRepository;
 import ru.practicum.shareit.item.i.api.ItemService;
 import ru.practicum.shareit.item.model.Item;
@@ -52,13 +55,6 @@ public class ItemServiceImpl implements ItemService {
             throw new EntityDoesNotExistException(userWarning);
         }
 
-        itemFromDataBase.setOwner(userFromDataBase);
-
-        if (!userId.equals(itemFromDataBase.getOwner().getId())) {
-            String itemWarning = "User with id: " + userId + " is not an owner of item with id: " + itemId;
-            throw new EntityDoesNotExistException(itemWarning);
-        }
-
         if (item.getName() != null) {
             itemFromDataBase.setName(item.getName());
         }
@@ -87,20 +83,39 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public List<Item> getAllItemsOfOwner(Long userId) {
+    public List<Item> getAllItemsOfOwner(Long userId, Integer from, Integer size) {
         log.info("Service layer: get all items of owner with id: '{}'.", userId);
 
-        return repository.findAllItemsByOwner(userService.getUserById(userId));
+        if (from < 0 || size < 1) {
+            throw new InvalidParameterException("One or more of 'from' or 'size' parameters are incorrect");
+        }
+
+        Pageable page = PageRequest.of(from, size);
+
+        return repository.findAllItemsByOwner(userService.getUserById(userId), page);
     }
 
     @Override
-    public List<Item> getItemsByNameOrDescription(String text) {
+    public List<Item> getItemsByNameOrDescription(String text, Integer from, Integer size) {
         log.info("Service layer: get items by name or description.");
+
+        if (from < 0 || size < 1) {
+            throw new InvalidParameterException("One or more of 'from' or 'size' parameters are incorrect");
+        }
+
+        Pageable page = PageRequest.of(from, size);
 
         if (text.isEmpty()) {
             return new ArrayList<>();
         } else {
-            return repository.findAllItemsByNameOrDescriptionContainingIgnoreCase(text);
+            return repository.findAllItemsByNameOrDescriptionContainingIgnoreCase(text, page);
         }
+    }
+
+    @Override
+    public List<Item> getItemsByRequestId(Long requestId) {
+        log.info("Service layer: get items by request with id: '{}'.", requestId);
+
+        return repository.findAllByRequestId(requestId);
     }
 }

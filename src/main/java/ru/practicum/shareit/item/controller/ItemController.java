@@ -36,8 +36,8 @@ public class ItemController {
 
     @PatchMapping("/{itemId}")
     public ItemDtoResponse updateItem(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                                @PathVariable final Long itemId,
-                                                @RequestBody ItemDtoRequest itemDtoRequest) {
+                                      @PathVariable final Long itemId,
+                                      @RequestBody ItemDtoRequest itemDtoRequest) {
         log.info("Controller layer: request for item with id: '{}' update obtained.", itemId);
 
         return itemDtoMapper.itemToItemDtoResponse(itemService.updateItem(userId, itemId,
@@ -46,33 +46,37 @@ public class ItemController {
 
     @GetMapping("/{itemId}")
     public ItemDtoResponse getItemById(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                                 @PathVariable final Long itemId) {
+                                       @PathVariable final Long itemId) {
         log.info("Controller layer: request for getting of item with id: '{}' obtained.", itemId);
 
         return itemDtoMapper.itemToItemDtoResponse(itemService.getItemById(itemId), userId);
     }
 
     @GetMapping
-    public List<ItemDtoResponse> getAllItemsOfOwner(@RequestHeader("X-Sharer-User-Id")
-                                                              @NotNull Long userId) {
+    public List<ItemDtoResponse> getAllItemsOfOwner(
+            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @RequestParam(defaultValue = "0", required = false) Integer from,
+            @RequestParam(defaultValue = "25", required = false) Integer size) {
         log.info("Controller layer: request for getting of all items of owner with id: '{}' obtained.", userId);
 
-        return itemDtoMapper.itemsToDtos(itemService.getAllItemsOfOwner(userId), userId);
+        return itemDtoMapper.itemsToDtos(itemService.getAllItemsOfOwner(userId, from, size), userId);
     }
 
     @GetMapping("/search")
-    public List<ItemDtoResponse> getItemsByNameOrDescription(@Valid @RequestHeader("X-Sharer-User-Id")
-                                                                       @NotNull Long userId,
-                                                                       @RequestParam String text) {
+    public List<ItemDtoResponse> getItemsByNameOrDescription(
+            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @RequestParam(defaultValue = "0", required = false) Integer from,
+            @RequestParam(defaultValue = "25", required = false) Integer size,
+            @RequestParam String text) {
         log.info("Controller layer: request for search items by name or description obtained.");
 
-        return itemDtoMapper.itemsToDtos(itemService.getItemsByNameOrDescription(text), userId);
+        return itemDtoMapper.itemsToDtos(itemService.getItemsByNameOrDescription(text, from, size), userId);
     }
 
     @PostMapping("/{itemId}/comment")
     public CommentDto createComment(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                              @PathVariable final Long itemId,
-                                              @Valid @RequestBody CommentDto commentDto) {
+                                    @PathVariable final Long itemId,
+                                    @Valid @RequestBody CommentDto commentDto) {
         log.info("Controller layer: request for create comment of item with id: '{}' from user with id: '{}'",
                 itemId, userId);
 

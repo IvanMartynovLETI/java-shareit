@@ -2,6 +2,8 @@ package ru.practicum.shareit.booking.i.impl;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.booking.i.api.BookingRepository;
@@ -14,6 +16,7 @@ import ru.practicum.shareit.exception.InvalidParameterException;
 import ru.practicum.shareit.user.i.api.UserService;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Slf4j
@@ -64,7 +67,7 @@ public class BookingServiceImpl implements BookingService {
         log.info("Service layer: update booking with id: '{}'.", bookingId);
 
         Booking bookingFromDataBase = repository.findBookingById(bookingId);
-
+        System.out.println(bookingFromDataBase);
         if (!bookingFromDataBase.getItem().getOwner().getId().equals(userId)) {
             String userWarning = "User with id: " + userId + " isn't an owner of item with id: " +
                     bookingFromDataBase.getItem().getId();
@@ -104,34 +107,46 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Booking> getAllBookingsByUser(Long userId, String state) {
+    public List<Booking> getAllBookingsByUser(Long userId, String state, Integer from, Integer size) {
         LocalDateTime ndtm = LocalDateTime.now();
 
         log.info("Service layer: get all bookings by user with id: '{}'.", userId);
+
+        if (from < 0 || size < 1) {
+            throw new InvalidParameterException("One or more of 'from' or 'size' parameters are incorrect");
+        }
 
         if (userService.getUserById(userId) == null) {
             String userWarning = "User with id: " + userId + " doesn't exist in database.";
             throw new EntityDoesNotExistException(userWarning);
         }
 
+        Integer totalRecords = repository.countAllByBookerId(userId);
+
+        size = Math.min(size, totalRecords - from);
+        Pageable page = PageRequest.of(from, size);
+
         switch (state) {
             case "ALL": {
-                return repository.findAllByBookerIdOrderByStartDesc(userId);
+                return repository.findAllByBookerIdOrderByStartDesc(userId, page);
             }
             case "CURRENT": {
-                return repository.findAllByBookerIdAndStartBeforeAndEndAfterOrderByStartDesc(userId, ndtm, ndtm);
+                List<Booking> bookings = repository.findAllByBookerIdAndStartBeforeAndEndAfterOrderByStartDesc(userId,
+                        ndtm, ndtm, page);
+                Collections.reverse(bookings);
+                return bookings;
             }
             case "PAST": {
-                return repository.findAllByBookerIdAndEndBeforeOrderByStartDesc(userId, ndtm);
+                return repository.findAllByBookerIdAndEndBeforeOrderByStartDesc(userId, ndtm, page);
             }
             case "FUTURE": {
-                return repository.findAllByBookerIdAndStartAfterOrderByStartDesc(userId, ndtm);
+                return repository.findAllByBookerIdAndStartAfterOrderByStartDesc(userId, ndtm, page);
             }
             case "WAITING": {
-                return repository.findAllByBookerIdAndStatusOrderByStartDesc(userId, Status.WAITING);
+                return repository.findAllByBookerIdAndStatusOrderByStartDesc(userId, Status.WAITING, page);
             }
             case "REJECTED": {
-                return repository.findAllByBookerIdAndStatusOrderByStartDesc(userId, Status.REJECTED);
+                return repository.findAllByBookerIdAndStatusOrderByStartDesc(userId, Status.REJECTED, page);
             }
             default: {
                 throw new InvalidParameterException("Unknown state: " + state);
@@ -140,34 +155,41 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<Booking> getAllBookingsByOwner(Long ownerId, String state) {
+    public List<Booking> getAllBookingsByOwner(Long ownerId, String state, Integer from, Integer size) {
         LocalDateTime ndtm = LocalDateTime.now();
 
         log.info("Service layer: get all bookings by owner with id: '{}'.", ownerId);
+
+        if (from < 0 || size < 1) {
+            throw new InvalidParameterException("One or more of 'from' or 'size' parameters are incorrect");
+        }
 
         if (userService.getUserById(ownerId) == null) {
             String userWarning = "User with id: " + ownerId + " doesn't exist in database.";
             throw new EntityDoesNotExistException(userWarning);
         }
 
+        Pageable page = PageRequest.of(from, size);
+
         switch (state) {
             case "ALL": {
-                return repository.findAllByItemOwnerIdOrderByStartDesc(ownerId);
+                return repository.findAllByItemOwnerIdOrderByStartDesc(ownerId, page);
             }
             case "CURRENT": {
-                return repository.findAllByItemOwnerIdAndStartBeforeAndEndAfterOrderByStartDesc(ownerId, ndtm, ndtm);
+                return repository.findAllByItemOwnerIdAndStartBeforeAndEndAfterOrderByStartDesc(ownerId, ndtm,
+                        ndtm, page);
             }
             case "PAST": {
-                return repository.findAllByItemOwnerIdAndEndBeforeOrderByStartDesc(ownerId, ndtm);
+                return repository.findAllByItemOwnerIdAndEndBeforeOrderByStartDesc(ownerId, ndtm, page);
             }
             case "FUTURE": {
-                return repository.findAllByItemOwnerIdAndStartAfterOrderByStartDesc(ownerId, ndtm);
+                return repository.findAllByItemOwnerIdAndStartAfterOrderByStartDesc(ownerId, ndtm, page);
             }
             case "WAITING": {
-                return repository.findAllByItemOwnerIdAndStatusOrderByStartDesc(ownerId, Status.WAITING);
+                return repository.findAllByItemOwnerIdAndStatusOrderByStartDesc(ownerId, Status.WAITING, page);
             }
             case "REJECTED": {
-                return repository.findAllByItemOwnerIdAndStatusOrderByStartDesc(ownerId, Status.REJECTED);
+                return repository.findAllByItemOwnerIdAndStatusOrderByStartDesc(ownerId, Status.REJECTED, page);
             }
             default: {
                 throw new InvalidParameterException("Unknown state: " + state);

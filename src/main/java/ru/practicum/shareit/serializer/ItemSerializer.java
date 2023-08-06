@@ -17,6 +17,9 @@ public class ItemSerializer extends JsonSerializer<Item> {
         jsonGenerator.writeStringField("name", item.getName());
         jsonGenerator.writeStringField("description", item.getDescription());
         jsonGenerator.writeBooleanField("available", item.getAvailable());
+        if (item.getRequest() != null) {
+            jsonGenerator.writeNumberField("requestId", item.getRequest().getId());
+        }
         jsonGenerator.writeEndObject();
     }
 }

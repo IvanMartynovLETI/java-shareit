@@ -1,10 +1,7 @@
 package ru.practicum.shareit.item.model;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import ru.practicum.shareit.request.model.ItemRequest;
-import ru.practicum.shareit.serializer.ItemSerializer;
-import ru.practicum.shareit.serializer.UserSerializer;
 import ru.practicum.shareit.user.model.User;
 
 import javax.persistence.*;
@@ -35,13 +32,11 @@ public class Item {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    @JsonSerialize(using = UserSerializer.class)
     @ToString.Exclude
     private User owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "request_id")
-    @JsonSerialize(using = ItemSerializer.class)
     @ToString.Exclude
     private ItemRequest request;
 }
