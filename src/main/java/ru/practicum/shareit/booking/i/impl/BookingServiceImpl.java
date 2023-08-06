@@ -130,7 +130,7 @@ public class BookingServiceImpl implements BookingService {
                 return repository.findAllByBookerIdOrderByStartDesc(userId, page);
             }
             case "CURRENT": {
-                return repository.findAllByBookerIdAndStartBeforeAndEndAfterOrderByStartDesc(userId,
+                return repository.findAllByBookerIdAndStartBeforeAndEndAfterOrderByEndDesc(userId,
                         ndtm, ndtm, page);
             }
             case "PAST": {

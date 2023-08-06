@@ -302,7 +302,7 @@ public class BookingServiceTests {
         when(bookingRepository.countAllByBookerId(any()))
                 .thenReturn(1);
 
-        when(bookingRepository.findAllByBookerIdAndStartBeforeAndEndAfterOrderByStartDesc(any(), any(), any(), any()))
+        when(bookingRepository.findAllByBookerIdAndStartBeforeAndEndAfterOrderByEndDesc(any(), any(), any(), any()))
                 .thenReturn(bookings);
 
         assertThat(bookingService.getAllBookingsByUser(user2.getId(), "CURRENT", from, size)).isEqualTo(bookings);
