@@ -84,7 +84,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void saveItem_WhenOwnerExists_ThenReturnItemTest() {
+    public void saveItemWhenOwnerExistsThenReturnItemTest() {
         when(userService.getUserById(any()))
                 .thenReturn(user1);
 
@@ -95,7 +95,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void saveItem_WhenOwnerNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void saveItemWhenOwnerNotExistThenThrowEntityDoesNotExistExceptionTest() {
         when(userService.getUserById(any()))
                 .thenReturn(null);
 
@@ -103,7 +103,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void updateItem_WhenAllOK_ThenReturnItemTest() {
+    public void updateItemWhenAllOKThenReturnItemTest() {
         when(itemRepository.findItemById(any()))
                 .thenReturn(item1);
 
@@ -117,7 +117,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void updateItem_WhenOwnerNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void updateItemWhenOwnerNotExistThenThrowEntityDoesNotExistExceptionTest() {
         when(userService.getUserById(any()))
                 .thenReturn(null);
 
@@ -126,7 +126,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void getItemById_WhenItemExists_ThenReturnItemTest() {
+    public void getItemByIdWhenItemExistsThenReturnItemTest() {
         when(itemRepository.findItemById(any()))
                 .thenReturn(item1);
 
@@ -134,7 +134,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void getItemById_WhenItemNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void getItemByIdWhenItemNotExistThenThrowEntityDoesNotExistExceptionTest() {
         when(itemRepository.findItemById(any()))
                 .thenReturn(null);
 
@@ -143,7 +143,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void getAllItemsOfOwner_WhenParamsOK_ThenReturnItemsTest() {
+    public void getAllItemsOfOwnerWhenParamsOKThenReturnItemsTest() {
         List<Item> items = new ArrayList<>();
         items.add(item1);
 
@@ -160,7 +160,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void getAllItemsOfOwner_WhenParamsIncorrect_ThenThrowInvalidParameterExceptionTest() {
+    public void getAllItemsOfOwnerWhenParamsIncorrectThenThrowInvalidParameterExceptionTest() {
 
         int from = -1;
         int size = 1;
@@ -170,7 +170,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void getItemsByNameOrDescription_WhenParamsOK_ThenReturnItemsTest() {
+    public void getItemsByNameOrDescriptionWhenParamsOKThenReturnItemsTest() {
         List<Item> items = new ArrayList<>();
         items.add(item1);
 
@@ -184,7 +184,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void getItemsByNameOrDescription_WhenParamsIncorrect_ThenThrowInvalidParameterExceptionTest() {
+    public void getItemsByNameOrDescriptionWhenParamsIncorrectThenThrowInvalidParameterExceptionTest() {
         int from = 0;
         int size = 0;
 
@@ -193,7 +193,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void getItemsByNameOrDescription_WhenTextIsEmpty_ThenReturnEmptyListTest() {
+    public void getItemsByNameOrDescriptionWhenTextIsEmptyThenReturnEmptyListTest() {
         int from = 0;
         int size = 1;
 
@@ -201,7 +201,7 @@ public class ItemServiceTests {
     }
 
     @Test
-    public void getItemsByRequestId_ThenReturnItemsTest() {
+    public void getItemsByRequestIdThenReturnItemsTest() {
         List<Item> items = new ArrayList<>();
         items.add(item1);
 

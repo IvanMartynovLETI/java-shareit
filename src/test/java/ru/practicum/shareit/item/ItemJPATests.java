@@ -35,7 +35,7 @@ public class ItemJPATests {
     }
 
     @Test
-    public void findItemByName_ThenReturnItemTest() {
+    public void findItemByNameThenReturnItemTest() {
         int from = 0;
         int size = 25;
         String searchStr = "item1";
@@ -48,7 +48,7 @@ public class ItemJPATests {
     }
 
     @Test
-    public void findItemByDescription_ThenReturnItemTest() {
+    public void findItemByDescriptionThenReturnItemTest() {
         int from = 0;
         int size = 25;
         String searchStr = "description of item1";

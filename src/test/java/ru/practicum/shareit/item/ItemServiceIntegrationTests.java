@@ -40,7 +40,7 @@ public class ItemServiceIntegrationTests {
     }
 
     @Test
-    public void getAllItemsOfOwner_ThenReturnItemsTest() {
+    public void getAllItemsOfOwnerThenReturnItemsTest() {
         List<Item> items = itemService.getAllItemsOfOwner(user1.getId(), 0, 25);
 
         assertThat(items.size()).isEqualTo(1);
@@ -48,7 +48,7 @@ public class ItemServiceIntegrationTests {
     }
 
     @Test
-    public void createItem_ThenReturnItemTest() {
+    public void createItemThenReturnItemTest() {
         Item item2 = new Item();
         item2.setId(2L);
         item2.setName("item2");

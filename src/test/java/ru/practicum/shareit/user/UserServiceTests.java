@@ -37,7 +37,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void saveUser_WhenAllOK_thenReturnUserTest() {
+    public void saveUserWhenAllOKThenReturnUserTest() {
         when(userRepository.save(any()))
                 .thenReturn(user1);
 
@@ -47,7 +47,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void saveUser_WhenDataIntegrityViolation_ThenThrowEntityAlreadyExistsExceptionTest() {
+    public void saveUserWhenDataIntegrityViolationThenThrowEntityAlreadyExistsExceptionTest() {
         when(userRepository.save(any()))
                 .thenThrow(new DataIntegrityViolationException("User already exists"));
 
@@ -55,7 +55,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void updateUser_WhenAllOK_ThenReturnUserTest() {
+    public void updateUserWhenAllOKThenReturnUserTest() {
         User user2 = new User(1L, "user2", "user2@yandex.ru");
         when(userRepository.findUserById(any()))
                 .thenReturn(user2);
@@ -69,7 +69,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void updateUser_WhenAttemptingToDuplicateEmail_ThenThrowEntityAlreadyExistsExceptionTest() {
+    public void updateUserWhenAttemptingToDuplicateEmailThenThrowEntityAlreadyExistsExceptionTest() {
         User user2 = new User(1L, "user2", "user2@yandex.ru");
         when(userRepository.findUserById(any()))
                 .thenReturn(user2);
@@ -81,7 +81,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void getUserById_WhenUserExists_ThenReturnUserTest() {
+    public void getUserByIdWhenUserExistsThenReturnUserTest() {
         when(userRepository.findUserById(any()))
                 .thenReturn(user1);
 
@@ -89,7 +89,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void getUserById_WhenUserNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void getUserByIdWhenUserNotExistThenThrowEntityDoesNotExistExceptionTest() {
         when(userRepository.findUserById(any()))
                 .thenReturn(null);
 
@@ -97,7 +97,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void deleteUserById_WhenUserExists_ThenReturnUser() {
+    public void deleteUserByIdWhenUserExistsThenReturnUser() {
         when(userRepository.findUserById(any()))
                 .thenReturn(user1);
 
@@ -105,7 +105,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void deleteUserById_WhenUserNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void deleteUserByIdWhenUserNotExistThenThrowEntityDoesNotExistExceptionTest() {
         when(userRepository.findUserById(any()))
                 .thenReturn(null);
 
@@ -113,7 +113,7 @@ public class UserServiceTests {
     }
 
     @Test
-    public void getAllUsers_ThenReturnUsersTest() {
+    public void getAllUsersThenReturnUsersTest() {
         List<User> users = new ArrayList<>();
         users.add(user1);
 

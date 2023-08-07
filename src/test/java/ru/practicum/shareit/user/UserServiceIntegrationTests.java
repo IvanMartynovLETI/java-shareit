@@ -32,7 +32,7 @@ public class UserServiceIntegrationTests {
     }
 
     @Test
-    public void getAllUsers_ThenReturnUsersTest() {
+    public void getAllUsersThenReturnUsersTest() {
         List<User> users = userService.getAllUsers();
 
         assertThat(users.size()).isEqualTo(3);
@@ -42,7 +42,7 @@ public class UserServiceIntegrationTests {
     }
 
     @Test
-    public void createUserTest_ThenReturnUserTest() {
+    public void createUserThenReturnUserTest() {
         User user4 = new User(4L, "user4", "user4@yandex.ru");
         User userReturned = userService.saveUser(user4);
 

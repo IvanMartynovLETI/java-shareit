@@ -71,7 +71,7 @@ public class BookingServiceIntegrationTests {
     }
 
     @Test
-    public void getAllBookingsByOwner_ThenReturnBookingsTest() {
+    public void getAllBookingsByOwnerThenReturnBookingsTest() {
         List<Booking> bookings = bookingService.getAllBookingsByOwner(user1.getId(), "ALL", 0, 12);
 
         assertThat(bookings.size()).isEqualTo(1);
@@ -81,7 +81,7 @@ public class BookingServiceIntegrationTests {
     }
 
     @Test
-    public void createBooking_WhenUserNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void createBookingWhenUserNotExistThenThrowEntityDoesNotExistExceptionTest() {
         booking1.setBooker(user3);
 
         assertThrows(EntityDoesNotExistException.class, () ->

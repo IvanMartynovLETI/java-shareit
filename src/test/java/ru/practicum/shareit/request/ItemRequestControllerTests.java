@@ -97,7 +97,7 @@ public class ItemRequestControllerTests {
 
     @SneakyThrows
     @Test
-    public void createItemRequest_WhenOK_ReturnItemRequestTest() {
+    public void createItemRequestWhenOKReturnItemRequestTest() {
         when(itemRequestDtoMapper.itemRequestDtoToItemRequest(any(), any()))
                 .thenReturn(itemRequest1);
 
@@ -121,7 +121,7 @@ public class ItemRequestControllerTests {
 
     @SneakyThrows
     @Test
-    public void createItemRequest_WhenUserNotFound_ThenReturn404CodeTest() {
+    public void createItemRequestWhenUserNotFoundThenReturn404CodeTest() {
         when(itemRequestDtoMapper.itemRequestDtoToItemRequest(any(), any()))
                 .thenReturn(itemRequest1);
 
@@ -142,7 +142,7 @@ public class ItemRequestControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllItemRequestsByOwner_WhenOwnerExists_ThenReturnItemRequestsTest() {
+    public void getAllItemRequestsByOwnerWhenOwnerExistsThenReturnItemRequestsTest() {
         List<ItemRequestDto> itemRequestDtos = new ArrayList<>();
         itemRequestDtos.add(itemRequestDto1);
 
@@ -164,7 +164,7 @@ public class ItemRequestControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllItemRequestsByOwner_WhenOwnerDoesNotExist_ThanReturn404ErrorCodeTest() {
+    public void getAllItemRequestsByOwnerWhenOwnerDoesNotExistThanReturn404ErrorCodeTest() {
         when(itemRequestService.getAllRequestsByOwner(any()))
                 .thenReturn(Collections.emptyList());
 
@@ -178,7 +178,7 @@ public class ItemRequestControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllItemRequests_WhenOwnerExists_ThenReturnItemRequestsTest() {
+    public void getAllItemRequestsWhenOwnerExistsThenReturnItemRequestsTest() {
         List<ItemRequestDto> itemRequestDtos = new ArrayList<>();
         itemRequestDtos.add(itemRequestDto1);
 
@@ -202,7 +202,7 @@ public class ItemRequestControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllItemRequests_WhenOwnerDoesNotExist_ThenReturn404ErrorCodeTest() {
+    public void getAllItemRequestsWhenOwnerDoesNotExistThenReturn404ErrorCodeTest() {
         when(itemRequestService.findAllRequests(any(), any(), any()))
                 .thenReturn(Collections.emptyList());
 
@@ -218,7 +218,7 @@ public class ItemRequestControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllItemRequests_WhenIncorrectParameters_ThenReturn400ErrorCodeTest() {
+    public void getAllItemRequestsWhenIncorrectParametersThenReturn400ErrorCodeTest() {
 
         when(itemRequestService.findAllRequests(any(), any(), any()))
                 .thenReturn(Collections.emptyList());
@@ -235,7 +235,7 @@ public class ItemRequestControllerTests {
 
     @SneakyThrows
     @Test
-    public void getItemRequestById_WhenUserAndRequestExists_ThenReturnItemRequestTest() {
+    public void getItemRequestByIdWhenUserAndRequestExistsThenReturnItemRequestTest() {
         when(itemRequestService.getItemRequestByIdWithValidation(any(), any()))
                 .thenReturn(itemRequest1);
 
@@ -252,7 +252,7 @@ public class ItemRequestControllerTests {
 
     @SneakyThrows
     @Test
-    public void getItemRequestById_WhenRequestNotExists_ThenReturn404ErrorCodeTest() {
+    public void getItemRequestByIdWhenRequestNotExistsThenReturn404ErrorCodeTest() {
         when(itemRequestService.getItemRequestByIdWithValidation(any(), any()))
                 .thenReturn(itemRequest1);
 

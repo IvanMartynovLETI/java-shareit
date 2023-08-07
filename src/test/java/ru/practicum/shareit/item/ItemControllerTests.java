@@ -120,7 +120,7 @@ public class ItemControllerTests {
 
     @SneakyThrows
     @Test
-    public void createItem_WhenUserExists_ThenReturnItemTest() {
+    public void createItemWhenUserExistsThenReturnItemTest() {
         when(itemDtoMapper.itemDtoRequestToItem(any()))
                 .thenReturn(item1);
 
@@ -146,7 +146,7 @@ public class ItemControllerTests {
 
     @SneakyThrows
     @Test
-    public void createItem_WhenUserNotExist_ThenReturn404ErrorCodeTest() {
+    public void createItemWhenUserNotExistThenReturn404ErrorCodeTest() {
         when(itemDtoMapper.itemDtoRequestToItem(any()))
                 .thenReturn(item1);
 
@@ -167,7 +167,7 @@ public class ItemControllerTests {
 
     @SneakyThrows
     @Test
-    public void updateItem_WhenUserExists_ThenReturnItemTest() {
+    public void updateItemWhenUserExistsThenReturnItemTest() {
         when(itemDtoMapper.itemDtoRequestToItem(any()))
                 .thenReturn(item1);
 
@@ -193,7 +193,7 @@ public class ItemControllerTests {
 
     @SneakyThrows
     @Test
-    public void updateItem_WhenUserNotExist_ThenReturn404ErrorCodeTest() {
+    public void updateItemWhenUserNotExistThenReturn404ErrorCodeTest() {
         when(itemDtoMapper.itemDtoRequestToItem(any()))
                 .thenReturn(item1);
 
@@ -214,7 +214,7 @@ public class ItemControllerTests {
 
     @SneakyThrows
     @Test
-    public void getItem_WhenUserExists_ThenReturnItemTest() {
+    public void getItemWhenUserExistsThenReturnItemTest() {
         when(itemDtoMapper.itemDtoRequestToItem(any()))
                 .thenReturn(item1);
 
@@ -236,7 +236,7 @@ public class ItemControllerTests {
 
     @SneakyThrows
     @Test
-    public void getItem_WhenItemNotExist_ThenReturnItemTest() {
+    public void getItemWhenItemNotExistThenReturnItemTest() {
         when(itemDtoMapper.itemDtoRequestToItem(any()))
                 .thenReturn(item1);
 
@@ -253,7 +253,7 @@ public class ItemControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllItemsOfOwner_WhenParamsOK_ThenReturnItemsTest() {
+    public void getAllItemsOfOwnerWhenParamsOKThenReturnItemsTest() {
         List<ItemDtoResponse> itemDtoResponses = new ArrayList<>();
         itemDtoResponses.add(itemDtoResponse1);
 
@@ -277,7 +277,7 @@ public class ItemControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllItemsOfOwner_WhenParamsIncorrect_ThenReturn400ErrorCodeTest() {
+    public void getAllItemsOfOwnerWhenParamsIncorrectThenReturn400ErrorCodeTest() {
         when(itemService.getAllItemsOfOwner(any(), any(), any()))
                 .thenReturn(Collections.emptyList());
 
@@ -293,7 +293,7 @@ public class ItemControllerTests {
 
     @SneakyThrows
     @Test
-    public void getItemsByNameOrDescription_WhenParamsOK_ThenReturnItemsTest() {
+    public void getItemsByNameOrDescriptionWhenParamsOKThenReturnItemsTest() {
         List<ItemDtoResponse> itemDtoResponses = new ArrayList<>();
         itemDtoResponses.add(itemDtoResponse1);
         List<Item> items = new ArrayList<>();
@@ -313,14 +313,13 @@ public class ItemControllerTests {
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
-        System.out.println(response);
-        System.out.println(itemDtoResponses);
+
         assertThat(mapper.writeValueAsString(itemDtoResponses)).isEqualTo(response);
     }
 
     @SneakyThrows
     @Test
-    public void getItemsByNameOrDescription_WhenParamsIncorrect_ThenReturn400ErrorCodeTest() {
+    public void getItemsByNameOrDescriptionWhenParamsIncorrectThenReturn400ErrorCodeTest() {
         List<Item> items = new ArrayList<>();
         items.add(item1);
 
@@ -340,7 +339,7 @@ public class ItemControllerTests {
 
     @SneakyThrows
     @Test
-    public void createComment_WhenAuthorCapableToPostComment_ThenReturnCommentTest() {
+    public void createCommentWhenAuthorCapableToPostCommentThenReturnCommentTest() {
         when(commentDtoMapper.commentDtoToComment(any(), any(), any()))
                 .thenReturn(comment1);
 
@@ -365,7 +364,7 @@ public class ItemControllerTests {
 
     @SneakyThrows
     @Test
-    public void createComment_WhenAuthorNotCapableToPostComment_ThenReturn400ErrorCodeTest() {
+    public void createCommentWhenAuthorNotCapableToPostCommentThenReturn400ErrorCodeTest() {
         when(commentDtoMapper.commentDtoToComment(any(), any(), any()))
                 .thenReturn(comment1);
 

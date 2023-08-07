@@ -103,7 +103,7 @@ public class BookingControllerTests {
 
     @SneakyThrows
     @Test
-    public void createBooking_WhenAllOK_ThenReturnBookingTest() {
+    public void createBookingWhenAllOKThenReturnBookingTest() {
         when(bookingDtoMapper.dtoRequestToBooking(any(), any()))
                 .thenReturn(booking);
 
@@ -127,7 +127,7 @@ public class BookingControllerTests {
 
     @SneakyThrows
     @Test
-    public void createBooking_WhenItemUnavailable_ThenReturn400ErrorCodeTest() {
+    public void createBookingWhenItemUnavailableThenReturn400ErrorCodeTest() {
         when(bookingDtoMapper.dtoRequestToBooking(any(), any()))
                 .thenReturn(booking);
 
@@ -148,7 +148,7 @@ public class BookingControllerTests {
 
     @SneakyThrows
     @Test
-    public void updateBooking_WhenAllOK_ThenReturnBookingTest() {
+    public void updateBookingWhenAllOKThenReturnBookingTest() {
         when(bookingDtoMapper.dtoRequestToBooking(any(), any()))
                 .thenReturn(booking);
 
@@ -173,7 +173,7 @@ public class BookingControllerTests {
 
     @SneakyThrows
     @Test
-    public void updateBooking_WhenBookingIsAlreadyApproved_ThenReturn400ErrorCodeTest() {
+    public void updateBookingWhenBookingIsAlreadyApprovedThenReturn400ErrorCodeTest() {
         when(bookingDtoMapper.dtoRequestToBooking(any(), any()))
                 .thenReturn(booking);
 
@@ -195,7 +195,7 @@ public class BookingControllerTests {
 
     @SneakyThrows
     @Test
-    public void getBookingById_WhenAllOK_ThenReturnBookingTest() {
+    public void getBookingByIdWhenAllOKThenReturnBookingTest() {
         when(bookingDtoMapper.dtoRequestToBooking(any(), any()))
                 .thenReturn(booking);
 
@@ -216,7 +216,7 @@ public class BookingControllerTests {
 
     @SneakyThrows
     @Test
-    public void getBookingById_WhenBookingDoesNotExist_ThenReturn404ErrorCodeTest() {
+    public void getBookingByIdWhenBookingDoesNotExistThenReturn404ErrorCodeTest() {
         when(bookingDtoMapper.dtoRequestToBooking(any(), any()))
                 .thenReturn(booking);
 
@@ -234,7 +234,7 @@ public class BookingControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllBookingsByUser_WhenAllOK_ThenReturnBookingsTest() {
+    public void getAllBookingsByUserWhenAllOKThenReturnBookingsTest() {
         List<BookingDtoResponse> bookingDtoResponses = new ArrayList<>();
         bookingDtoResponses.add(bookingDtoResponse);
 
@@ -259,7 +259,7 @@ public class BookingControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllBookingsByUser_WhenIncorrectParams_ThenReturn400ErrorCodeTest() {
+    public void getAllBookingsByUserWhenIncorrectParamsThenReturn400ErrorCodeTest() {
         when(bookingDtoMapper.bookingsToDtosResponse(any(), any()))
                 .thenThrow(new InvalidParameterException("Incorrect parameters."));
 
@@ -276,7 +276,7 @@ public class BookingControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllBookingsByOwner_WhenAllOK_ThenReturnBookingsTest() {
+    public void getAllBookingsByOwnerWhenAllOKThenReturnBookingsTest() {
         List<BookingDtoResponse> bookingDtoResponses = new ArrayList<>();
         bookingDtoResponses.add(bookingDtoResponse);
 
@@ -301,7 +301,7 @@ public class BookingControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllBookingsByOwner_WhenIncorrectParams_ThenReturn400ErrorCodeTest() {
+    public void getAllBookingsByOwnerWhenIncorrectParamsThenReturn400ErrorCodeTest() {
         when(bookingDtoMapper.bookingsToDtosResponse(any(), any()))
                 .thenThrow(new InvalidParameterException("Incorrect parameters."));
 
@@ -318,7 +318,7 @@ public class BookingControllerTests {
 
     @SneakyThrows
     @Test
-    public void createBooking_WhenEndTimeIsBeforeStartTime_ThenReturn400ErrorCodeTest() {
+    public void createBookingWhenEndTimeIsBeforeStartTimeThenReturn400ErrorCodeTest() {
         bookingDtoRequest.setEnd(LocalDateTime.now());
 
         when(bookingDtoMapper.dtoRequestToBooking(any(), any()))

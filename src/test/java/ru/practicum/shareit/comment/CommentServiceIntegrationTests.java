@@ -47,7 +47,7 @@ public class CommentServiceIntegrationTests {
     }
 
     @Test
-    public void createComment_ThenReturnCommentTest() {
+    public void createCommentThenReturnCommentTest() {
         Comment commentReturned = commentService.saveComment(comment);
 
         Long id = commentReturned.getId();
@@ -60,7 +60,7 @@ public class CommentServiceIntegrationTests {
     }
 
     @Test
-    public void createComment_WhenAuthorNotAbleToPostComment_ThenThrowInvalidParameterExceptionTest() {
+    public void createCommentWhenAuthorNotAbleToPostCommentThenThrowInvalidParameterExceptionTest() {
         User user3 = new User(3L, "user3", "user3@yandex.ru");
         comment.setAuthor(user3);
 

@@ -54,7 +54,7 @@ public class UserControllerTests {
 
     @SneakyThrows
     @Test
-    void createUser_WhenNoErrors_ThenReturnSavedUserTest() {
+    void createUserWhenNoErrorsThenReturnSavedUserTest() {
         when(userDtoMapper.userDtoToUser(any()))
                 .thenReturn(user1);
 
@@ -77,7 +77,7 @@ public class UserControllerTests {
 
     @SneakyThrows
     @Test
-    void createUser_WhenUserExists_ThenReturn409ErrorCodeTest() {
+    void createUserWhenUserExistsThenReturn409ErrorCodeTest() {
         when(userDtoMapper.userDtoToUser(any()))
                 .thenReturn(user1);
 
@@ -93,7 +93,7 @@ public class UserControllerTests {
 
     @SneakyThrows
     @Test
-    void updateUser_WhenNoErrors_ThenReturnUpdatedUseTest() {
+    void updateUserWhenNoErrorsThenReturnUpdatedUseTest() {
         UserDto userDto1Updated = new UserDto(1L, "user1Updated", "user1@yandex.ru");
 
         when(userDtoMapper.userDtoToUser(any()))
@@ -118,7 +118,7 @@ public class UserControllerTests {
 
     @SneakyThrows
     @Test
-    public void updateUser_WhenEmailNotUnique_ThenReturn409ErrorCodeTest() {
+    public void updateUserWhenEmailNotUniqueThenReturn409ErrorCodeTest() {
         when(userDtoMapper.userDtoToUser(any()))
                 .thenReturn(user1);
 
@@ -134,7 +134,7 @@ public class UserControllerTests {
 
     @SneakyThrows
     @Test
-    void getUserById_WhenUserExists_ThenReturnUserTest() {
+    void getUserByIdWhenUserExistsThenReturnUserTest() {
         when(userDtoMapper.userDtoToUser(any()))
                 .thenReturn(user1);
 
@@ -153,7 +153,7 @@ public class UserControllerTests {
 
     @SneakyThrows
     @Test
-    void getUserById_WhenUserDoesNotExist_ThenReturn404ErrorCodeTest() {
+    void getUserByIdWhenUserDoesNotExistThenReturn404ErrorCodeTest() {
         when(userDtoMapper.userDtoToUser(any()))
                 .thenReturn(user1);
 
@@ -170,7 +170,7 @@ public class UserControllerTests {
 
     @SneakyThrows
     @Test
-    public void deleteUser_WhenNoErrors_ThenReturnDeletedUserTest() {
+    public void deleteUserWhenNoErrorsThenReturnDeletedUserTest() {
         when(userDtoMapper.userDtoToUser(any()))
                 .thenReturn(user1);
 
@@ -189,7 +189,7 @@ public class UserControllerTests {
 
     @SneakyThrows
     @Test
-    public void deleteUser_WhenUserDoesNotExist_ThenReturn404ErrorCodeTest() {
+    public void deleteUserWhenUserDoesNotExistThenReturn404ErrorCodeTest() {
         when(userDtoMapper.userDtoToUser(any()))
                 .thenReturn(user1);
 
@@ -205,7 +205,7 @@ public class UserControllerTests {
 
     @SneakyThrows
     @Test
-    public void getAllUsers_WhenUsersExist_ThenReturnUsersTest() {
+    public void getAllUsersWhenUsersExistThenReturnUsersTest() {
         List<UserDto> userDtoList = new ArrayList<>();
         userDtoList.add(userDto1);
 

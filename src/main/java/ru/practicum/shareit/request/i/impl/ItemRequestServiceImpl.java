@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.shareit.exception.EntityDoesNotExistException;
 import ru.practicum.shareit.exception.InvalidParameterException;
 import ru.practicum.shareit.request.i.api.ItemRequestRepository;
@@ -20,10 +21,12 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class ItemRequestServiceImpl implements ItemRequestService {
     private final ItemRequestRepository repository;
     private final UserService userService;
 
+    @Transactional
     @Override
     public ItemRequest saveItemRequest(Long userId, ItemRequest itemRequest) {
         log.info("Service layer: create itemRequest from user with id: '{}'.", userId);

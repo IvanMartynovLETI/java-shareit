@@ -66,7 +66,7 @@ public class BookingServiceImpl implements BookingService {
         log.info("Service layer: update booking with id: '{}'.", bookingId);
 
         Booking bookingFromDataBase = repository.findBookingById(bookingId);
-        System.out.println(bookingFromDataBase);
+
         if (!bookingFromDataBase.getItem().getOwner().getId().equals(userId)) {
             String userWarning = "User with id: " + userId + " isn't an owner of item with id: " +
                     bookingFromDataBase.getItem().getId();

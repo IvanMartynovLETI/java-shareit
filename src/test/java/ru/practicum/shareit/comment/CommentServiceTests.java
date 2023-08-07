@@ -22,6 +22,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 import static org.assertj.core.api.Assertions.*;
+
 @ExtendWith(MockitoExtension.class)
 public class CommentServiceTests {
     private static User user1;
@@ -66,7 +67,7 @@ public class CommentServiceTests {
     }
 
     @Test
-    public void saveComment_WhenAuthorIsAbleToPostComment_ThenReturnCommentTest() {
+    public void saveCommentWhenAuthorIsAbleToPostCommentThenReturnCommentTest() {
         when(bookingService.validateCommentAuthor(user1.getId(), item1.getId()))
                 .thenReturn(true);
 
@@ -77,7 +78,7 @@ public class CommentServiceTests {
     }
 
     @Test
-    public void saveComment_WhenAuthorNotAbleToPostComment_ThenThrowInvalidParameterExceptionTest() {
+    public void saveCommentWhenAuthorNotAbleToPostCommentThenThrowInvalidParameterExceptionTest() {
         when(bookingService.validateCommentAuthor(user1.getId(), item1.getId()))
                 .thenReturn(false);
 
@@ -86,7 +87,7 @@ public class CommentServiceTests {
     }
 
     @Test
-    public void getAllCommentsByItemId_ThenReturnCommentsTest() {
+    public void getAllCommentsByItemIdThenReturnCommentsTest() {
         List<Comment> comments = new ArrayList<>();
         comments.add(comment);
 

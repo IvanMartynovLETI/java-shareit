@@ -69,7 +69,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void createItemRequest_WhenUserExists_ThenReturnItemRequestTest() {
+    public void createItemRequestWhenUserExistsThenReturnItemRequestTest() {
         when(userService.getUserById(any()))
                 .thenReturn(user1);
 
@@ -80,7 +80,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void createItemRequest_WhenUserNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void createItemRequestWhenUserNotExistThenThrowEntityDoesNotExistExceptionTest() {
         when(userService.getUserById(any()))
                 .thenReturn(null);
 
@@ -89,7 +89,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void getItemRequestByIdTest() {
+    public void getItemRequestByIdThenReturnItemTest() {
         when(itemRequestRepository.findItemRequestById(any()))
                 .thenReturn(itemRequest1);
 
@@ -97,7 +97,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void getItemRequestById_WhenValidationOK_ThenReturnItemRequestTest() {
+    public void getItemRequestByIdWhenValidationOKThenReturnItemRequestTest() {
         when(userService.getUserById(any()))
                 .thenReturn(user1);
 
@@ -109,7 +109,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void getItemRequestById_WhenUserNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void getItemRequestByIdWhenUserNotExistThenThrowEntityDoesNotExistExceptionTest() {
         when(userService.getUserById(any()))
                 .thenReturn(null);
 
@@ -118,7 +118,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void getItemRequestById_WhenItemRequestNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void getItemRequestByIdWhenItemRequestNotExistThenThrowEntityDoesNotExistExceptionTest() {
         when(userService.getUserById(any()))
                 .thenReturn(user1);
 
@@ -130,7 +130,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void getAllItemRequestsByOwner_WhenOwnerExists_ThenReturnItemRequestTest() {
+    public void getAllItemRequestsByOwnerWhenOwnerExistsThenReturnItemRequestTest() {
         List<ItemRequest> itemRequests = new ArrayList<>();
         itemRequests.add(itemRequest1);
 
@@ -144,7 +144,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void getAllItemRequestsByOwner_WhenOwnerNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void getAllItemRequestsByOwnerWhenOwnerNotExistThenThrowEntityDoesNotExistExceptionTest() {
         when(userService.getUserById(any()))
                 .thenReturn(null);
 
@@ -152,7 +152,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void findAllRequests_WhenAllOK_ThenReturnItemRequestsTest() {
+    public void findAllRequestsWhenAllOKThenReturnItemRequestsTest() {
         List<ItemRequest> itemRequests = new ArrayList<>();
         itemRequests.add(itemRequest1);
 
@@ -172,7 +172,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void findAllRequests_WhenUserNotEExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void findAllRequestsWhenUserNotEExistThenThrowEntityDoesNotExistExceptionTest() {
         when(userService.getUserById(user1.getId()))
                 .thenReturn(null);
 
@@ -184,7 +184,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void findAllRequests_WhenIncorrectParams_ThenThrowInvalidParameterExceptionTest() {
+    public void findAllRequestsWhenIncorrectParamsThenThrowInvalidParameterExceptionTest() {
         when(userService.getUserById(any()))
                 .thenReturn(user1);
 
@@ -196,7 +196,7 @@ public class ItemRequestServiceTests {
     }
 
     @Test
-    public void findAllRequests_WhenAllOKAndEmptyListOfRequests_ThenReturnEmptyListOfItemRequestsTest() {
+    public void findAllRequestsWhenAllOKAndEmptyListOfRequestsThenReturnEmptyListOfItemRequestsTest() {
         List<ItemRequest> itemRequests = new ArrayList<>();
 
         int from = 0;

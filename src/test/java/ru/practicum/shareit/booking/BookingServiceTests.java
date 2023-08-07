@@ -89,7 +89,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void createBooking_WhenAllOK_ThenReturnBookingTest() {
+    public void createBookingWhenAllOKThenReturnBookingTest() {
 
         when(userService.getUserById(any()))
                 .thenReturn(user1);
@@ -104,7 +104,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void createBooking_WhenItemUnavailableForBooking_ThenThrowEntityUnavailableExceptionTest() {
+    public void createBookingWhenItemUnavailableForBookingThenThrowEntityUnavailableExceptionTest() {
         item1.setAvailable(false);
         booking1.setItem(item1);
 
@@ -115,7 +115,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void createBooking_WhenUserNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void createBookingWhenUserNotExistThenThrowEntityDoesNotExistExceptionTest() {
         when(userService.getUserById(any()))
                 .thenReturn(null);
 
@@ -123,7 +123,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void createBooking_WhenBookerIsAnItemOwner_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void createBookingWhenBookerIsAnItemOwnerThenThrowEntityDoesNotExistExceptionTest() {
         when(userService.getUserById(any()))
                 .thenReturn(user1);
 
@@ -135,7 +135,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void createBooking_WhenBookingAlreadyApproved_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void createBookingWhenBookingAlreadyApprovedThenThrowEntityDoesNotExistExceptionTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -149,7 +149,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void updateBooking_WhenAllOKAndBookingApproved_ThenReturnBookingTest() {
+    public void updateBookingWhenAllOKAndBookingApprovedThenReturnBookingTest() {
         Booking booking2 = new Booking();
         booking2.setId(2L);
         booking2.setStart(ndtm.minusMinutes(10L));
@@ -168,7 +168,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void updateBooking_WhenAllOKAndBookingRejected_ThenReturnBookingTest() {
+    public void updateBookingWhenAllOKAndBookingRejectedThenReturnBookingTest() {
         Booking booking2 = new Booking();
         booking2.setId(2L);
         booking2.setStart(ndtm.minusMinutes(10L));
@@ -188,7 +188,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void updateBooking_WhenUserIsNotAnOwnerOfItem_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void updateBookingWhenUserIsNotAnOwnerOfItemThenThrowEntityDoesNotExistExceptionTest() {
         Booking booking2 = new Booking();
         booking2.setId(2L);
         booking2.setStart(ndtm.minusMinutes(10L));
@@ -205,7 +205,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void updateBooking_WhenBookingAlreadyApproved_ThenThrowEntityUnavailableExceptionTest() {
+    public void updateBookingWhenBookingAlreadyApprovedThenThrowEntityUnavailableExceptionTest() {
         Booking booking2 = new Booking();
         booking2.setId(2L);
         booking2.setStart(ndtm.minusMinutes(10L));
@@ -222,7 +222,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getBookingInfo_WhenAllOK_ThenReturnBookingTest() {
+    public void getBookingInfoWhenAllOKThenReturnBookingTest() {
         when(bookingRepository.findBookingById(any()))
                 .thenReturn(booking1);
 
@@ -230,7 +230,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getBookingInfo_WhenBookingNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void getBookingInfoWhenBookingNotExistThenThrowEntityDoesNotExistExceptionTest() {
         when(bookingRepository.findBookingById(any()))
                 .thenReturn(null);
 
@@ -239,7 +239,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getBookingInfo_WhenNoSuchEntity_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void getBookingInfoWhenNoSuchEntityThenThrowEntityDoesNotExistExceptionTest() {
         when(bookingRepository.findBookingById(any()))
                 .thenReturn(booking1);
 
@@ -248,7 +248,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByUser_WhenIncorrectParams_ThenThrowInvalidParameterExceptionTest() {
+    public void getAllBookingsByUserWhenIncorrectParamsThenThrowInvalidParameterExceptionTest() {
         int from = -1;
         int size = 1;
 
@@ -257,7 +257,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByUser_WhenUserNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void getAllBookingsByUserWhenUserNotExistThenThrowEntityDoesNotExistExceptionTest() {
         int from = 0;
         int size = 1;
 
@@ -269,7 +269,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByUser_WhenAll_ThenReturnBookingsTest() {
+    public void getAllBookingsByUserWhenAllThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -289,7 +289,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByUser_WhenCurrent_ThenReturnBookingsTest() {
+    public void getAllBookingsByUserWhenCurrentThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -309,7 +309,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByUser_WhenPast_ThenReturnBookingsTest() {
+    public void getAllBookingsByUserWhenPastThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -329,7 +329,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByUser_WhenFuture_ThenReturnBookingsTest() {
+    public void getAllBookingsByUserWhenFutureThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -349,7 +349,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByUser_WhenWaiting_ThenReturnBookingsTest() {
+    public void getAllBookingsByUserWhenWaitingThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -369,7 +369,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByUser_WhenRejected_ThenReturnBookingsTest() {
+    public void getAllBookingsByUserWhenRejectedThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -390,7 +390,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByUser_WhenUnknown_ThenThrowInvalidParameterExceptionTest() {
+    public void getAllBookingsByUserWhenUnknownThenThrowInvalidParameterExceptionTest() {
         int from = 0;
         int size = 1;
 
@@ -405,7 +405,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByOwner_WhenIncorrectParams_ThenThrowInvalidParameterExceptionTest() {
+    public void getAllBookingsByOwnerWhenIncorrectParamsThenThrowInvalidParameterExceptionTest() {
         int from = -1;
         int size = 1;
 
@@ -414,7 +414,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByOwner_WhenOwnerNotExist_ThenThrowEntityDoesNotExistExceptionTest() {
+    public void getAllBookingsByOwnerWhenOwnerNotExistThenThrowEntityDoesNotExistExceptionTest() {
         int from = 0;
         int size = 1;
 
@@ -426,7 +426,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByOwner_WhenAll_ThenReturnBookingsTest() {
+    public void getAllBookingsByOwnerWhenAllThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -443,7 +443,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByOwner_WhenCurrent_ThenReturnBookingsTest() {
+    public void getAllBookingsByOwnerWhenCurrentThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -462,7 +462,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByOwner_WhenPast_ThenReturnBookingsTest() {
+    public void getAllBookingsByOwnerWhenPastThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -479,7 +479,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByOwner_WhenFuture_ThenReturnBookingsTest() {
+    public void getAllBookingsByOwnerWhenFutureThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -496,7 +496,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByOwner_WhenWaiting_ThenReturnBookingsTest() {
+    public void getAllBookingsByOwnerWhenWaitingThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -514,7 +514,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByOwner_WhenRejected_ThenReturnBookingsTest() {
+    public void getAllBookingsByOwnerWhenRejectedThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -532,7 +532,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getAllBookingsByOwner_WhenUnknown_ThenReturnInvalidParameterExceptionTest() {
+    public void getAllBookingsByOwnerWhenUnknownThenReturnInvalidParameterExceptionTest() {
         int from = 0;
         int size = 1;
 
@@ -544,7 +544,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getListForLastBookingFinding_ThenReturnBookingsTest() {
+    public void getListForLastBookingFindingThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -556,7 +556,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getListForLastBookingFinding_WhenEmptyBookings_ThenReturnEmptyListTest() {
+    public void getListForLastBookingFindingWhenEmptyBookingsThenReturnEmptyListTest() {
         List<Booking> bookings = new ArrayList<>();
 
         when(bookingRepository.findAllByItemIdAndStartBeforeAndStatusOrderByEndDesc(any(), any(), any()))
@@ -567,7 +567,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getListForNextBookingFinding_ThenReturnBookingsTest() {
+    public void getListForNextBookingFindingThenReturnBookingsTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -579,7 +579,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void getListForNextBookingFinding_WhenEmptyBookings_ThenReturnEmptyListTest() {
+    public void getListForNextBookingFindingWhenEmptyBookingsThenReturnEmptyListTest() {
         List<Booking> bookings = new ArrayList<>();
 
         when(bookingRepository.findAllByItemIdAndStartAfterAndStatusOrderByStartAsc(any(), any(), any()))
@@ -590,7 +590,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void validateCommentAuthor_WhenValid_ThenReturnTrueTest() {
+    public void validateCommentAuthorWhenValidThenReturnTrueTest() {
         List<Booking> bookings = new ArrayList<>();
         bookings.add(booking1);
 
@@ -602,7 +602,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void validateCommentAuthor_WhenInvalid_ThenReturnFalseTest() {
+    public void validateCommentAuthorWhenInvalidThenReturnFalseTest() {
         List<Booking> bookings = new ArrayList<>();
 
         when(bookingRepository.findAllByBookerIdAndItemIdAndEndBeforeAndStatusOrderByStartDesc(any(), any(), any(),
@@ -613,7 +613,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void validateBooking_WhenOK_ThenReturnTrueTest() throws NoSuchMethodException, InvocationTargetException,
+    public void validateBookingWhenOKThenReturnTrueTest() throws NoSuchMethodException, InvocationTargetException,
             IllegalAccessException {
         List<Booking> bookings = new ArrayList<>();
 
@@ -653,7 +653,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void validateBooking_WhenBookingIntersectsWithBooking3_ThenReturnFalseTest() throws NoSuchMethodException,
+    public void validateBookingWhenBookingIntersectsWithBooking3ThenReturnFalseTest() throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
         List<Booking> bookings = new ArrayList<>();
 
@@ -693,7 +693,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void validateBooking_WhenBookingIntersectsWithBooking1_ThenReturnFalseTest() throws NoSuchMethodException,
+    public void validateBookingWhenBookingIntersectsWithBooking1ThenReturnFalseTest() throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
         List<Booking> bookings = new ArrayList<>();
 
@@ -733,7 +733,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void validateBooking_WhenBookingOKBetweenBookings1And2_ThenReturnTrueTest() throws NoSuchMethodException,
+    public void validateBookingWhenBookingOKBetweenBookings1And2ThenReturnTrueTest() throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
         List<Booking> bookings = new ArrayList<>();
 
@@ -773,7 +773,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void validateBooking_WhenBookingOKBetweenBookings2And3_ThenReturnTrueTest() throws NoSuchMethodException,
+    public void validateBookingWhenBookingOKBetweenBookings2And3ThenReturnTrueTest() throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
         List<Booking> bookings = new ArrayList<>();
 
@@ -813,7 +813,7 @@ public class BookingServiceTests {
     }
 
     @Test
-    public void validateBooking_WhenBookingOKBeforeBooking1_ThenReturnTrueTest() throws NoSuchMethodException,
+    public void validateBookingWhenBookingOKBeforeBooking1ThenReturnTrueTest() throws NoSuchMethodException,
             InvocationTargetException, IllegalAccessException {
         List<Booking> bookings = new ArrayList<>();
 

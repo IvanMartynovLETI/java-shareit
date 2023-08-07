@@ -52,7 +52,7 @@ public class ItemRequestServiceIntegrationTests {
     }
 
     @Test
-    public void getItemRequestById_ThenReturnItemRequestTest() {
+    public void getItemRequestByIdThenReturnItemRequestTest() {
         ItemRequest itemRequest = itemRequestService.getItemRequestById(itemRequest1.getId());
 
         assertThat(itemRequest.getId()).isEqualTo(itemRequest1.getId());
@@ -60,7 +60,7 @@ public class ItemRequestServiceIntegrationTests {
     }
 
     @Test
-    public void getAllItemRequestsByOwner_ThenReturnItemRequestsTest() {
+    public void getAllItemRequestsByOwnerThenReturnItemRequestsTest() {
         List<ItemRequest> itemRequests = itemRequestService.getAllRequestsByOwner(user1.getId());
 
         assertThat(itemRequests.size()).isEqualTo(1);
