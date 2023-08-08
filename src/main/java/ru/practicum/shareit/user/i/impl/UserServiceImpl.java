@@ -46,6 +46,7 @@ public class UserServiceImpl implements UserService {
         if (user.getName() != null) {
             userFromDataBase.setName(user.getName());
         }
+
         if (user.getEmail() != null && !user.getEmail().equals(userFromDataBase.getEmail())) {
             if (repository.findUserByEmail(user.getEmail()) != null) {
                 throw new EntityAlreadyExistsException("Attempt to create a duplicate email: " + user.getEmail());

@@ -9,6 +9,7 @@ import ru.practicum.shareit.booking.model.Status;
 import ru.practicum.shareit.comment.dto.CommentDtoMapper;
 import ru.practicum.shareit.comment.i.api.CommentService;
 import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.request.i.api.ItemRequestService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,6 +21,7 @@ public class ItemDtoMapper {
     private final BookingService bookingService;
     private final CommentService commentService;
     private final CommentDtoMapper commentDtoMapper;
+    private final ItemRequestService itemRequestService;
 
     public static class ShortDtoResponseByItemId {
         public static InnerBookingDtoResponse createLast(Long itemId, BookingService bService, LocalDateTime dtm) {
@@ -69,6 +71,9 @@ public class ItemDtoMapper {
 
         itemDtoResponse.setComments(commentDtoMapper.commentsToDtos(commentService
                 .getAllCommentsByItemId(item.getId())));
+        if (item.getRequest() != null) {
+            itemDtoResponse.setRequestId(item.getRequest().getId());
+        }
 
         return itemDtoResponse;
     }
@@ -79,6 +84,9 @@ public class ItemDtoMapper {
         item.setName(itemDtoRequest.getName());
         item.setDescription(itemDtoRequest.getDescription());
         item.setAvailable(itemDtoRequest.getAvailable());
+        if (itemDtoRequest.getRequestId() != null) {
+            item.setRequest(itemRequestService.getItemRequestById(itemDtoRequest.getRequestId()));
+        }
 
         return item;
     }

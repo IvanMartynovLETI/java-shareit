@@ -21,8 +21,10 @@ public class BookingController {
     private final BookingDtoMapper bookingDtoMapper;
 
     @PostMapping
-    public BookingDtoResponse createBooking(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                            @Valid @RequestBody BookingDtoRequest dtoForBookingRequest) {
+    public BookingDtoResponse createBooking(
+            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @Valid @RequestBody BookingDtoRequest dtoForBookingRequest) {
+
         log.info("Controller layer: request for booking creation obtained.");
 
         return bookingDtoMapper.bookingToDtoResponse(bookingService.createBooking(bookingDtoMapper
@@ -30,9 +32,11 @@ public class BookingController {
     }
 
     @PatchMapping("/{bookingId}")
-    public BookingDtoResponse updateBooking(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                                      @PathVariable final Long bookingId,
-                                                      @RequestParam Boolean approved) {
+    public BookingDtoResponse updateBooking(
+            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @PathVariable final Long bookingId,
+            @RequestParam Boolean approved) {
+
         log.info("Controller layer: request for booking with id: '{}' update obtained.", bookingId);
 
         return bookingDtoMapper.bookingToDtoResponse(bookingService.updateBooking(bookingId, userId,
@@ -40,9 +44,10 @@ public class BookingController {
     }
 
     @GetMapping("/{bookingId}")
-    public BookingDtoResponse getBookingInfo(@Valid @RequestHeader("X-Sharer-User-Id")
-                                                       @NotNull Long userId,
-                                                       @PathVariable final Long bookingId) {
+    public BookingDtoResponse getBookingInfo(
+            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @PathVariable final Long bookingId) {
+
         log.info("Controller layer: request for info about booking with id: '{}' update obtained.", bookingId);
 
         return bookingDtoMapper.bookingToDtoResponse(bookingService.getBookingInfo(bookingId, userId),
@@ -50,30 +55,30 @@ public class BookingController {
     }
 
     @GetMapping
-    public List<BookingDtoResponse> getAllBookingsByUser(@Valid @RequestHeader("X-Sharer-User-Id")
-                                                                   @NotNull Long userId,
-                                                                   @RequestParam(required = false,
-                                                                           defaultValue = "ALL")
-                                                                   String state) {
+    public List<BookingDtoResponse> getAllBookingsByUser(
+            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @RequestParam(required = false, defaultValue = "ALL") String state,
+            @RequestParam(defaultValue = "0", required = false) Integer from,
+            @RequestParam(defaultValue = "25", required = false) Integer size) {
 
         log.info("Controller layer: request for all bookings with state: '{}' of user with id: '{}' obtained.",
                 state, userId);
 
-        return bookingDtoMapper.bookingsToDtosResponse(bookingService.getAllBookingsByUser(userId, state),
+        return bookingDtoMapper.bookingsToDtosResponse(bookingService.getAllBookingsByUser(userId, state, from, size),
                 userId);
     }
 
     @GetMapping("/owner")
-    public List<BookingDtoResponse> getAllBookingsByOwner(@Valid @RequestHeader("X-Sharer-User-Id")
-                                                                    @NotNull Long userId,
-                                                                    @RequestParam(required = false,
-                                                                            defaultValue = "ALL")
-                                                                    String state) {
+    public List<BookingDtoResponse> getAllBookingsByOwner(
+            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @RequestParam(required = false, defaultValue = "ALL") String state,
+            @RequestParam(defaultValue = "0", required = false) Integer from,
+            @RequestParam(defaultValue = "25", required = false) Integer size) {
 
         log.info("Controller layer: request for all bookings with state: '{}' of owner with id: '{}' obtained.",
                 state, userId);
 
-        return bookingDtoMapper.bookingsToDtosResponse(bookingService.getAllBookingsByOwner(userId, state),
+        return bookingDtoMapper.bookingsToDtosResponse(bookingService.getAllBookingsByOwner(userId, state, from, size),
                 userId);
     }
 }

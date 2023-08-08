@@ -25,6 +25,5 @@ public class BookingDtoResponse {
 
     @JsonSerialize(using = ItemSerializer.class)
     private Item item;
-
     private String name;
 }
