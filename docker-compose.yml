@@ -12,7 +12,6 @@ services:
     environment:
       - DEBUG_SERVER_JAVA_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:8081
       - SHAREIT_SERVER_URL=http://server:9090
-      - TZ=Europe/Moscow
 
   server:
     build: ./server
@@ -26,7 +25,6 @@ services:
     environment:
       - DEBUG_SERVER_JAVA_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:9091
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/shareit
-      - TZ=Europe/Moscow
 
   db:
     image: postgres:13.7-alpine
