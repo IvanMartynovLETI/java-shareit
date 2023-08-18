@@ -14,11 +14,13 @@ import javax.validation.constraints.NotNull;
 @RequestMapping(path = "/bookings")
 @RequiredArgsConstructor
 public class BookingController {
+    public static final String USER_ID_HEADER = "X-Sharer-User-Id";
+
     private final BookingClient bookingClient;
 
     @PostMapping
     public ResponseEntity<Object> createBooking(
-            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @RequestHeader(USER_ID_HEADER) @NotNull Long userId,
             @Valid @RequestBody BookingDtoRequest dtoForBookingRequest) {
 
         log.info("ShareIt gateway: request for booking creation obtained.");
@@ -28,7 +30,7 @@ public class BookingController {
 
     @PatchMapping("/{bookingId}")
     public ResponseEntity<Object> updateBooking(
-            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @RequestHeader(USER_ID_HEADER) @NotNull Long userId,
             @PathVariable final Long bookingId,
             @RequestParam Boolean approved) {
 
@@ -39,7 +41,7 @@ public class BookingController {
 
     @GetMapping("/{bookingId}")
     public ResponseEntity<Object> getBookingInfo(
-            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @RequestHeader(USER_ID_HEADER) @NotNull Long userId,
             @PathVariable final Long bookingId) {
 
         log.info("ShareIt gateway: request for info about booking with id: '{}' update obtained.", bookingId);
@@ -49,7 +51,7 @@ public class BookingController {
 
     @GetMapping
     public ResponseEntity<Object> getAllBookingsByUser(
-            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @RequestHeader(USER_ID_HEADER) @NotNull Long userId,
             @RequestParam(required = false, defaultValue = "ALL") String state,
             @RequestParam(defaultValue = "0", required = false) Integer from,
             @RequestParam(defaultValue = "25", required = false) Integer size) {
@@ -62,7 +64,7 @@ public class BookingController {
 
     @GetMapping("/owner")
     public ResponseEntity<Object> getAllBookingsByOwner(
-            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @RequestHeader(USER_ID_HEADER) @NotNull Long userId,
             @RequestParam(required = false, defaultValue = "ALL") String state,
             @RequestParam(defaultValue = "0", required = false) Integer from,
             @RequestParam(defaultValue = "25", required = false) Integer size) {

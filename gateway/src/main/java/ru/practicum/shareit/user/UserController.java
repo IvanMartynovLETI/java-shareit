@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.dto.UserDtoForUpdating;
 
 import javax.validation.Valid;
 
@@ -23,10 +24,11 @@ public class UserController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> updateUser(@PathVariable final Long id, @RequestBody UserDto userDto) {
+    public ResponseEntity<Object> updateUser(@PathVariable final Long id, @Valid @RequestBody UserDtoForUpdating
+            userDtoForUpdating) {
         log.info("ShareIt gateway: request for user with id: '{}' update obtained.", id);
 
-        return userClient.updateUser(id, userDto);
+        return userClient.updateUser(id, userDtoForUpdating);
     }
 
     @GetMapping("/{id}")

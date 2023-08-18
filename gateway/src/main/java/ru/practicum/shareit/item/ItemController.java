@@ -15,10 +15,12 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 @RequestMapping("/items")
 public class ItemController {
+    public static final String USER_ID_HEADER = "X-Sharer-User-Id";
+
     private final ItemClient itemClient;
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestHeader("X-Sharer-User-Id") Long userId,
+    public ResponseEntity<Object> add(@RequestHeader(USER_ID_HEADER) Long userId,
                                       @Valid @RequestBody ItemDtoRequest itemDtoRequest) {
         log.info("ShareIt gateway: request for item creation obtained.");
 
@@ -26,17 +28,17 @@ public class ItemController {
     }
 
     @PatchMapping("/{itemId}")
-    public ResponseEntity<Object> updateItem(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                      @PathVariable final Long itemId,
-                                      @RequestBody ItemDtoRequest itemDtoRequest) {
+    public ResponseEntity<Object> updateItem(@RequestHeader(USER_ID_HEADER) @NotNull Long userId,
+                                             @PathVariable final Long itemId,
+                                             @RequestBody ItemDtoRequest itemDtoRequest) {
         log.info("ShareIt gateway: request for item with id: '{}' update obtained.", itemId);
 
         return itemClient.updateItem(userId, itemId, itemDtoRequest);
     }
 
     @GetMapping("/{itemId}")
-    public ResponseEntity<Object> getItemById(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                       @PathVariable final Long itemId) {
+    public ResponseEntity<Object> getItemById(@RequestHeader(USER_ID_HEADER) @NotNull Long userId,
+                                              @PathVariable final Long itemId) {
         log.info("ShareIt gateway: request for getting of item with id: '{}' obtained.", itemId);
 
         return itemClient.getItemById(userId, itemId);
@@ -44,7 +46,7 @@ public class ItemController {
 
     @GetMapping
     public ResponseEntity<Object> getAllItemsOfOwner(
-            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @RequestHeader(USER_ID_HEADER) @NotNull Long userId,
             @RequestParam(defaultValue = "0", required = false) Integer from,
             @RequestParam(defaultValue = "25", required = false) Integer size) {
         log.info("ShareIt gateway: request for getting of all items of owner with id: '{}' obtained.", userId);
@@ -54,7 +56,7 @@ public class ItemController {
 
     @GetMapping("/search")
     public ResponseEntity<Object> getItemsByNameOrDescription(
-            @Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
+            @RequestHeader(USER_ID_HEADER) @NotNull Long userId,
             @RequestParam(defaultValue = "0", required = false) Integer from,
             @RequestParam(defaultValue = "25", required = false) Integer size,
             @RequestParam String text) {
@@ -64,9 +66,9 @@ public class ItemController {
     }
 
     @PostMapping("/{itemId}/comment")
-    public ResponseEntity<Object> createComment(@Valid @RequestHeader("X-Sharer-User-Id") @NotNull Long userId,
-                                    @PathVariable final Long itemId,
-                                    @Valid @RequestBody CommentDto commentDto) {
+    public ResponseEntity<Object> createComment(@RequestHeader(USER_ID_HEADER) @NotNull Long userId,
+                                                @PathVariable final Long itemId,
+                                                @Valid @RequestBody CommentDto commentDto) {
         log.info("ShareIt gateway: request for create comment of item with id: '{}' from user with id: '{}'",
                 itemId, userId);
 

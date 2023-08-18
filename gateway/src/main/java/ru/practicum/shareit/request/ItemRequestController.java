@@ -13,10 +13,12 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RequestMapping(path = "/requests")
 public class ItemRequestController {
+    public static final String USER_ID_HEADER = "X-Sharer-User-Id";
+
     private final ItemRequestClient requestClient;
 
     @PostMapping
-    public ResponseEntity<Object> add(@RequestHeader("X-Sharer-User-Id") Long userId,
+    public ResponseEntity<Object> add(@RequestHeader(USER_ID_HEADER) Long userId,
                                       @Valid @RequestBody ItemRequestDto itemRequestDto) {
         log.info("ShareIt gateway: request for itemRequest creation obtained.");
 
@@ -24,8 +26,8 @@ public class ItemRequestController {
     }
 
     @GetMapping
-    public ResponseEntity<Object> getAllRequestsByOwner(@RequestHeader("X-Sharer-User-Id")
-                                                      Long userId) {
+    public ResponseEntity<Object> getAllRequestsByOwner(@RequestHeader(USER_ID_HEADER)
+                                                        Long userId) {
         log.info("ShareIt gateway: request for obtaining all itemRequests for owner with id: '{}'.", userId);
 
         return requestClient.getAllRequestsByOwner(userId);
@@ -33,7 +35,7 @@ public class ItemRequestController {
 
     @GetMapping("/all")
     public ResponseEntity<Object> getAllRequestsWithPagination(
-            @RequestHeader("X-Sharer-User-Id") Long userId,
+            @RequestHeader(USER_ID_HEADER) Long userId,
             @RequestParam(defaultValue = "0", required = false) Integer from,
             @RequestParam(defaultValue = "25", required = false) Integer size) {
         log.info("ShareIt gateway: request for obtaining all requests for user with id: '{}' " +
@@ -43,8 +45,8 @@ public class ItemRequestController {
     }
 
     @GetMapping("/{requestId}")
-    public ResponseEntity<Object> getItemRequestById(@RequestHeader("X-Sharer-User-Id") Long userId,
-                                             @PathVariable Long requestId) {
+    public ResponseEntity<Object> getItemRequestById(@RequestHeader(USER_ID_HEADER) Long userId,
+                                                     @PathVariable Long requestId) {
         log.info("ShareIt gateway: request for obtaining request with id: '{}' from user with id: '{}'.", requestId,
                 userId);
 
