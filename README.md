@@ -91,6 +91,7 @@ server_container и shareIt_db_container.
 * Mockito
 * Docker
 * JUnit
+* REST API
 
 #
 <p align="center">Схема базы данных</p>
