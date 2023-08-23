@@ -90,6 +90,7 @@ server_container и shareIt_db_container.
 * SLF4J
 * Mockito
 * Docker
+* JUnit
 
 #
 <p align="center">Схема базы данных</p>
@@ -100,3 +101,8 @@ server_container и shareIt_db_container.
 * В таблице users осуществляется проверка уникальности поля email средствами базы данных.
 * В таблице bookings тип поля status - varchar с ограничениями на принимаемые значения (WAITING, APPROVED, REJECTED или
   CANCELED)
+
+Перед запуском приложения необходимо убедиться, что на компьютере установлены Intellij IDEA и Docker.
+Запуск приложения может осуществляться в следующей последовательности:
+* В командной строке Intellij IDEA выполнить команду mvn clean package для сборки приложения.
+* Исполнить команду docker-compose up в командной строке, тем самым осуществив запуск приложения.
